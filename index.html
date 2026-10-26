@@ -722,7 +722,7 @@
 <!-- DASHBOARD -->
 <div class="wrap" id="dashScreen" style="display:none;">
   <div id="page-home">
-    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V53)</span></div>
+    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V54)</span></div>
     <p class="hello-sub" id="helloSub">Here's how today's going.</p>
     
     <div class="smart-tip" id="smartTipBanner">
@@ -1018,7 +1018,7 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const APP_VERSION = 'V53';
+  const APP_VERSION = 'V54';
   const BIRTH_YEAR = 1969;
   const FIORA_AGE = new Date().getFullYear() - BIRTH_YEAR;
 
@@ -1606,6 +1606,9 @@
         snap.forEach(docSnap => {
           const msg = docSnap.data();
           appendChatMsg(msg.text, msg.sender, msg.timeString);
+          if (msg.logData) {
+             appendActionCard(msg.logData);
+          }
           chatHistory.push({ role: msg.sender === 'user' ? 'user' : 'assistant', content: msg.text });
         });
         
@@ -1619,12 +1622,12 @@
     }
   }
 
-  async function saveChatMessage(text, sender, timeString) {
+  async function saveChatMessage(text, sender, timeString, logData = null) {
     if (!currentUser) return;
     try {
-      await addDoc(collection(db, 'chats', currentUser.uid, 'messages'), {
-        text, sender, timeString, createdAt: serverTimestamp()
-      });
+      const docData = { text, sender, timeString, createdAt: serverTimestamp() };
+      if (logData) docData.logData = logData;
+      await addDoc(collection(db, 'chats', currentUser.uid, 'messages'), docData);
     } catch (e) { console.error("Failed to save message:", e); }
   }
 
@@ -1740,6 +1743,8 @@
       
       for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i];
+        const isLast = (i === chunks.length - 1);
+        
         typingWrapper.classList.add('show');
         container.scrollTop = container.scrollHeight;
         let typingTime = 800 + (chunk.length * 25); 
@@ -1747,12 +1752,8 @@
         await new Promise(resolve => setTimeout(resolve, typingTime));
         typingWrapper.classList.remove('show');
         appendChatMsg(chunk, 'ai', getTimeString());
-        saveChatMessage(chunk, 'ai', getTimeString());
+        saveChatMessage(chunk, 'ai', getTimeString(), isLast ? logData : null);
         if (i < chunks.length - 1) await new Promise(resolve => setTimeout(resolve, 800));
-      }
-
-      if (logData) {
-          appendActionCard(logData);
       }
 
       isChatting = false;
@@ -2531,7 +2532,7 @@
     showRandomTip();
     showCoachMark();
     checkPremiumModal();
-    updateSettingsSummary();
+    updateSettingsSummary(); // Update settings profile view
   }
 
   function updateSettingsSummary() {
