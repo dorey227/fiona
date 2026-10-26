@@ -289,7 +289,13 @@
   .chat-msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.45; white-space: pre-wrap; }
   .chat-msg.ai { background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); color: var(--ink); }
   .chat-msg.user { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; border-bottom-right-radius: 4px; box-shadow: 0 2px 6px rgba(154, 193, 155, 0.2); }
-  
+
+  /* Chat Action Card */
+  .chat-action-card { background: #fff9f6; border: 1px dashed var(--terra); border-radius: 16px; padding: 14px; margin: 8px 0 16px 0; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 12px rgba(230, 163, 141, 0.1); width: 100%; max-width: 85%; }
+  .chat-action-info { font-size: 14px; color: var(--ink); line-height: 1.4; }
+  .chat-action-info strong { font-size: 15px; color: var(--terra-dark); display: block; margin-bottom: 4px; }
+  .chat-action-card button { margin-top: 0; padding: 10px; font-size: 14px; width: 100%; }
+
   .typing-wrapper { background: var(--cream); padding: 0 16px 8px 16px; max-width: 500px; margin: 0 auto; width: 100%; display: none; }
   .typing-wrapper.show { display: block; }
   
@@ -716,7 +722,7 @@
 <!-- DASHBOARD -->
 <div class="wrap" id="dashScreen" style="display:none;">
   <div id="page-home">
-    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V47)</span></div>
+    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V53)</span></div>
     <p class="hello-sub" id="helloSub">Here's how today's going.</p>
     
     <div class="smart-tip" id="smartTipBanner">
@@ -765,7 +771,7 @@
       <details class="manual-add">
         <summary>Add a meal by hand</summary>
         <label>What did you eat?</label>
-        <input type="text" id="mealDesc" placeholder="e.g. Chicken sandwich">
+        <input type="text" id="mealDesc" placeholder="e.g. 100g chicken breast">
         <label>Which meal?</label>
         <select id="mealType">
           <option value="breakfast">🌅 Breakfast</option>
@@ -773,9 +779,7 @@
           <option value="dinner">🌙 Dinner</option>
           <option value="snack">🍎 Snack</option>
         </select>
-        <label>Calories (optional)</label>
-        <input type="number" id="mealCal" placeholder="e.g. 420">
-        <button onclick="addMeal()">Log it</button>
+        <button onclick="addMeal()" id="addMealBtn">✨ Calculate & Log</button>
         <div class="status" id="mealStatus"></div>
       </details>
     </div>
@@ -1014,7 +1018,7 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const APP_VERSION = 'V47';
+  const APP_VERSION = 'V53';
   const BIRTH_YEAR = 1969;
   const FIORA_AGE = new Date().getFullYear() - BIRTH_YEAR;
 
@@ -1695,7 +1699,8 @@
         2. Be informative but very friendly. 
         3. Always ask a follow-up question at the end to check if she understands or needs help with anything else.
         4. If she mentions a specific restaurant, a menu, or a food you don't know the exact details of, you MUST immediately suggest she use the 📷 camera button to take a photo of it so you can read it for her. Do not try to guess the menu.
-        5. Never mention being an AI. Never use bullet points for casual chat.` 
+        5. Never mention being an AI. Never use bullet points for casual chat.
+        6. If she tells you she ate something (e.g., "I just had 100g of chicken"), you MUST append this exact format to the end of your reply so the app can offer to log it for her: [LOG_FOOD: {"description": "100g Chicken", "calories": 235, "protein": 30, "carbs": 0, "fat": 15, "fibre": 0, "satFat": 3}]` 
       };
 
       const res = await fetch('/api/chat', {
@@ -1706,8 +1711,18 @@
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "API Error");
-      const reply = data.choices?.[0]?.message?.content || "I didn't quite catch that.";
+      let reply = data.choices?.[0]?.message?.content || "I didn't quite catch that.";
       
+      // Check for AI log trigger
+      let logData = null;
+      const logMatch = reply.match(/\[LOG_FOOD:\s*(\{.*?\})\s*\]/s);
+      if (logMatch) {
+          try {
+              logData = JSON.parse(logMatch[1]);
+              reply = reply.replace(logMatch[0], '').trim();
+          } catch(e) { console.error("Failed to parse log data", e); }
+      }
+
       chatHistory.push({ role: 'assistant', content: reply });
 
       let chunks = [reply]; 
@@ -1736,12 +1751,58 @@
         if (i < chunks.length - 1) await new Promise(resolve => setTimeout(resolve, 800));
       }
 
+      if (logData) {
+          appendActionCard(logData);
+      }
+
       isChatting = false;
     } catch (e) {
       typingWrapper.classList.remove('show');
       appendChatMsg("⚠️ Error: " + e.message, 'ai', getTimeString());
       isChatting = false;
     }
+  };
+
+  function appendActionCard(data) {
+      const container = document.getElementById('chatMessages');
+      const card = document.createElement('div');
+      card.className = 'chat-action-card';
+      
+      const safeDesc = escapeHtml(data.description || 'Unknown Meal');
+      const safeData = encodeURIComponent(JSON.stringify(data));
+
+      card.innerHTML = `
+          <div class="chat-action-info">
+              <strong>Log this meal?</strong><br>
+              ${safeDesc} (~${data.calories} cal, ${data.protein}g protein)
+          </div>
+          <button class="btn-terra" onclick="confirmChatLog(this, '${safeData}')">✅ Add to Diary</button>
+      `;
+      container.appendChild(card);
+      container.scrollTop = container.scrollHeight;
+  }
+
+  window.confirmChatLog = async function(btn, encodedData) {
+      try {
+          const data = JSON.parse(decodeURIComponent(encodedData));
+          await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
+              description: data.description,
+              calories: data.calories || 0,
+              protein: data.protein || 0,
+              carbs: data.carbs || 0,
+              fat: data.fat || 0,
+              fibre: data.fibre || 0,
+              satFat: data.satFat || 0,
+              mealType: defaultMealType(),
+              dateKey: todayKey(),
+              createdAt: serverTimestamp()
+          });
+          btn.textContent = '✅ Added to Diary!';
+          btn.disabled = true;
+          btn.style.opacity = '0.5';
+      } catch(e) {
+          alert("Error logging meal: " + e.message);
+      }
   };
 
   // ---------- Photo Scanning ----------
@@ -2147,7 +2208,6 @@
   function buildProfileObj() {
     const meds = Array.from(document.querySelectorAll('.med:checked')).map(cb => cb.value);
     
-    // THE FAIL-SAFE: If inputs are empty, fall back to existing profile data
     const hVal = parseFloat(document.getElementById('heightCm').value);
     const wVal = parseFloat(document.getElementById('currentWeightKg').value);
     
@@ -2184,6 +2244,12 @@
   window.saveProfile = async function() {
     const btn = document.getElementById('saveBtn');
     const profile = buildProfileObj();
+    
+    if (!profile.heightCm) {
+        setStatus('formStatus', '⚠️ Please enter your height.', true);
+        return;
+    }
+
     profile.createdAt = new Date().toISOString();
     profile.setupComplete = true;
     
@@ -2250,21 +2316,59 @@
 
   window.addMeal = async function() {
     const descEl = document.getElementById('mealDesc');
-    const calEl = document.getElementById('mealCal');
     const typeEl = document.getElementById('mealType');
+    const btn = document.getElementById('addMealBtn');
     const description = descEl.value.trim();
-    const calories = parseInt(calEl.value) || null;
+    
     if (!description) { setStatus('mealStatus', 'Please write what you ate.', true); return; }
-    setStatus('mealStatus', 'Saving…');
+    
+    btn.disabled = true;
+    btn.textContent = "Calculating...";
+    setStatus('mealStatus', 'Asking dietitian for macros...');
+
     try {
-      await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
-        description, calories, mealType: (typeEl && typeEl.value) || defaultMealType(), dateKey: todayKey(), createdAt: serverTimestamp()
+      const prompt = `Extract the nutritional macros for this food. Respond ONLY with a valid JSON object: {"description": "clean title", "calories": 000, "protein": 00, "carbs": 00, "fat": 00, "fibre": 00, "satFat": 00}. Food: "${description}"`;
+      
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'system', content: prompt }] })
       });
-      descEl.value = ''; calEl.value = '';
+
+      const rawText = await res.text(); let data;
+      try { data = JSON.parse(rawText); } catch(e) { throw new Error("AI failed to parse."); }
+      if (!res.ok) throw new Error(data.error || "Error");
+      
+      const raw = data.choices?.[0]?.message?.content || '';
+      const match = raw.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error("Could not read macro data.");
+      
+      const parsed = JSON.parse(match[0]);
+
+      await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
+        description: parsed.description || description,
+        calories: parsed.calories || 0,
+        protein: parsed.protein || 0,
+        carbs: parsed.carbs || 0,
+        fat: parsed.fat || 0,
+        fibre: parsed.fibre || 0,
+        satFat: parsed.satFat || 0,
+        mealType: (typeEl && typeEl.value) || defaultMealType(), 
+        dateKey: todayKey(), 
+        createdAt: serverTimestamp()
+      });
+      
+      descEl.value = '';
       if (typeEl) typeEl.value = defaultMealType();
-      setStatus('mealStatus', '✅ Logged!');
-      setTimeout(() => setStatus('mealStatus', ''), 1500);
-    } catch (e) { setStatus('mealStatus', '❌ ' + e.message, true); }
+      setStatus('mealStatus', '✅ Logged with macros!');
+      setTimeout(() => setStatus('mealStatus', ''), 2000);
+
+    } catch (e) { 
+      setStatus('mealStatus', '❌ ' + e.message, true); 
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "✨ Calculate & Log";
+    }
   };
 
   window.deleteMeal = async function(id) { try { await deleteDoc(doc(db, 'meals', currentUser.uid, 'items', id)); } catch (e) {} };
@@ -2427,7 +2531,7 @@
     showRandomTip();
     showCoachMark();
     checkPremiumModal();
-    updateSettingsSummary(); // Update settings profile view
+    updateSettingsSummary();
   }
 
   function updateSettingsSummary() {
