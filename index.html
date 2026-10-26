@@ -722,7 +722,7 @@
 <!-- DASHBOARD -->
 <div class="wrap" id="dashScreen" style="display:none;">
   <div id="page-home">
-    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V54)</span></div>
+    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V55)</span></div>
     <p class="hello-sub" id="helloSub">Here's how today's going.</p>
     
     <div class="smart-tip" id="smartTipBanner">
@@ -1018,7 +1018,7 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const APP_VERSION = 'V54';
+  const APP_VERSION = 'V55';
   const BIRTH_YEAR = 1969;
   const FIORA_AGE = new Date().getFullYear() - BIRTH_YEAR;
 
@@ -1703,7 +1703,7 @@
         3. Always ask a follow-up question at the end to check if she understands or needs help with anything else.
         4. If she mentions a specific restaurant, a menu, or a food you don't know the exact details of, you MUST immediately suggest she use the 📷 camera button to take a photo of it so you can read it for her. Do not try to guess the menu.
         5. Never mention being an AI. Never use bullet points for casual chat.
-        6. If she tells you she ate something (e.g., "I just had 100g of chicken"), you MUST append this exact format to the end of your reply so the app can offer to log it for her: [LOG_FOOD: {"description": "100g Chicken", "calories": 235, "protein": 30, "carbs": 0, "fat": 15, "fibre": 0, "satFat": 3}]` 
+        6. YOU CANNOT LOG FOOD YOURSELF. The app does that. If she tells you she ate something (e.g., "I had pie", or says "yes" to your offer to log it), you MUST append this exact tag to the very end of your reply: [LOG_FOOD: {"description": "Pie", "calories": 350, "protein": 4, "carbs": 45, "fat": 18, "fibre": 2, "satFat": 8}]. NEVER say "I added it" or "added". Instead say "I've prepared it for you to add below" and output the tag.` 
       };
 
       const res = await fetch('/api/chat', {
@@ -1718,7 +1718,7 @@
       
       // Check for AI log trigger
       let logData = null;
-      const logMatch = reply.match(/\[LOG_FOOD:\s*(\{.*?\})\s*\]/s);
+      const logMatch = reply.match(/\[LOG_FOOD:\s*(\{[\s\S]*?\})\s*\]/);
       if (logMatch) {
           try {
               logData = JSON.parse(logMatch[1]);
@@ -2532,7 +2532,7 @@
     showRandomTip();
     showCoachMark();
     checkPremiumModal();
-    updateSettingsSummary(); // Update settings profile view
+    updateSettingsSummary();
   }
 
   function updateSettingsSummary() {
