@@ -5,23 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Fiona's Kitchen</title>
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="https://via.placeholder.com/192/8ba888/1c1b19?text=F">
+<link rel="apple-touch-icon" href="https://via.placeholder.com/192/7a9e7b/14171f?text=F">
 
 <!-- VERCEL ANALYTICS -->
 <script defer src="/_vercel/insights/script.js"></script>
 
 <style>
   :root {
-    /* Warm Espresso Midnight Palette */
-    --bg: #1c1b19; 
-    --card: #252321; 
-    --sage: #8ba888; 
-    --sage-dark: #6b8a68;
-    --terra: #d98b6a; 
-    --terra-dark: #b86b4e; 
-    --ink: #f4efe9; 
-    --ink-soft: #a8a29e;
-    --line: #383532; 
+    /* Midnight Premium Palette */
+    --bg: #14171f; 
+    --card: #1f242d; 
+    --sage: #7a9e7b; 
+    --sage-dark: #5c7a5d;
+    --terra: #d48166; 
+    --terra-dark: #b3634b; 
+    --ink: #e2e8f0; 
+    --ink-soft: #94a3b8;
+    --line: #2d3748; 
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   }
   * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -29,7 +29,7 @@
   body { margin: 0; padding: env(safe-area-inset-top) 0 0 0; background: var(--bg); color: var(--ink); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; width: 100%; }
   .wrap { max-width: 500px; margin: 0 auto; padding: 0 16px 90px 16px; }
   
-  .app-header { position: sticky; top: 0; z-index: 10; background: rgba(28, 27, 25, 0.95); backdrop-filter: blur(8px); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+  .app-header { position: sticky; top: 0; z-index: 10; background: rgba(20, 23, 31, 0.95); backdrop-filter: blur(8px); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
   .brand { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--ink); }
   .icon-btn { background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 6px; border-radius: 10px; color: var(--ink-soft); transition: color 0.2s; }
   .icon-btn:hover { color: var(--ink); }
@@ -41,28 +41,28 @@
   .version-tag { font-size: 14px; color: var(--terra); font-weight: 700; }
   
   .hello-sub { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; }
-  .pill { display: inline-block; background: #332b27; color: var(--terra); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 18px; }
+  .pill { display: inline-block; background: #2d3748; color: var(--terra); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 18px; }
   
-  .smart-tip { background: #2e2521; border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; position: relative; display: none; box-shadow: var(--shadow); }
+  .smart-tip { background: #2d2420; border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; position: relative; display: none; box-shadow: var(--shadow); }
   .smart-tip.show { display: block; animation: fadeSlideUp 0.4s ease; }
   .smart-tip .close-tip { position: absolute; top: 8px; right: 12px; background: none; border: none; color: var(--ink-soft); font-size: 16px; cursor: pointer; padding: 4px; width: auto; margin: 0; }
   
   /* Centered Calorie Ring */
   .ring-card.main-ring { width: 100%; max-width: 320px; margin: 0 auto 20px; background: var(--card); border-radius: 24px; padding: 24px; text-align: center; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; border: 1px solid var(--line); }
   .ring-card.main-ring:active { transform: scale(0.97); }
-  .ring-svg { width: 150px; height: 150px; margin: 0 auto 12px; display: block; }
-  .ring-track { fill: none; stroke: #332e2a; stroke-width: 9; }
-  .ring-fill { fill: none; stroke-width: 9; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.5s ease; }
+  .ring-svg { width: 140px; height: 140px; margin: 0 auto 12px; display: block; }
+  .ring-track { fill: none; stroke: #2d3748; stroke-width: 10; }
+  .ring-fill { fill: none; stroke-width: 10; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.5s ease; }
   .ring-fill.cal { stroke: var(--terra); }
   .ring-text { font-size: 28px; font-weight: 700; fill: var(--ink); }
   .ring-label { font-size: 15px; color: var(--ink-soft); margin-top: 4px; }
   .ring-label strong { color: var(--ink); font-size: 18px; display: block; }
-  .ring-sub { font-size: 13px; color: var(--ink-soft); margin-top: 8px; background: #2e2b28; padding: 6px 12px; border-radius: 12px; display: inline-block; }
+  .ring-sub { font-size: 13px; color: var(--ink-soft); margin-top: 8px; background: #2d3748; padding: 6px 12px; border-radius: 12px; display: inline-block; }
   .ring-sub strong { color: var(--ink); }
 
   label { display: block; font-weight: 600; margin: 14px 0 6px; font-size: 13px; color: var(--ink-soft); }
-  input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; font-size: 16px; background: #1a1817; font-family: inherit; color: var(--ink); transition: border-color 0.2s; }
-  input:focus, select:focus, textarea:focus { border-color: var(--sage); outline: none; background: #141312; }
+  input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; font-size: 16px; background: #14171f; font-family: inherit; color: var(--ink); transition: border-color 0.2s; }
+  input:focus, select:focus, textarea:focus { border-color: var(--sage); outline: none; background: #1a1e26; }
   
   /* PREMIUM BUTTON STYLES */
   button { 
@@ -77,29 +77,29 @@
     margin-top: 12px; 
     cursor: pointer; 
     letter-spacing: 0.3px;
-    box-shadow: 0 4px 12px rgba(139, 168, 136, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+    box-shadow: 0 4px 12px rgba(122, 158, 123, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
     transition: all 0.15s ease;
     font-family: inherit;
   }
   button:active { 
     transform: translateY(2px) scale(0.98); 
-    box-shadow: 0 1px 4px rgba(139, 168, 136, 0.1), inset 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 4px rgba(122, 158, 123, 0.1), inset 0 2px 4px rgba(0,0,0,0.2);
   }
-  button:disabled { background: #383532; color: #7a7570; box-shadow: none; cursor: not-allowed; transform: none; }
+  button:disabled { background: #2d3748; color: #64748b; box-shadow: none; cursor: not-allowed; transform: none; }
   
   .btn-terra { 
     background: linear-gradient(180deg, var(--terra) 0%, var(--terra-dark) 100%);
-    box-shadow: 0 4px 12px rgba(217, 139, 106, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+    box-shadow: 0 4px 12px rgba(212, 129, 102, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
   }
-  .btn-terra:active { box-shadow: 0 1px 4px rgba(217, 139, 106, 0.1), inset 0 2px 4px rgba(0,0,0,0.3); }
+  .btn-terra:active { box-shadow: 0 1px 4px rgba(212, 129, 102, 0.1), inset 0 2px 4px rgba(0,0,0,0.2); }
   
   .btn-soft { 
-    background: #332e2a; 
+    background: #2d3748; 
     color: var(--ink); 
     border: 1.5px solid var(--line);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
-  .btn-soft:active { background: #252321; box-shadow: none; }
+  .btn-soft:active { background: #1f242d; box-shadow: none; }
   
   .btn-danger { 
     background: #3b1f20; 
@@ -109,12 +109,12 @@
   }
   .btn-danger:active { background: #4a2627; }
   
-  .google-btn { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .google-btn { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
   .google-btn svg { flex-shrink: 0; }
-  .google-btn:hover { background: #1a1817; }
+  .google-btn:hover { background: #1a1e26; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-  .chip { background: #332e2a; border: 1.5px solid transparent; padding: 10px 14px; border-radius: 14px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; color: var(--ink); transition: all 0.2s; }
+  .chip { background: #2d3748; border: 1.5px solid transparent; padding: 10px 14px; border-radius: 14px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; color: var(--ink); transition: all 0.2s; }
   .chip input { display: none; }
   .chip.on { background: var(--sage); color: white; }
 
@@ -129,44 +129,44 @@
     border-radius: 12px; 
     font-size: 14px; 
     font-weight: 500; 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     letter-spacing: 0;
   }
-  .chip-btn:hover { background: #332e2a; color: var(--ink); }
+  .chip-btn:hover { background: #2d3748; color: var(--ink); }
   .chip-btn:active { transform: translateY(1px); box-shadow: none; }
 
   /* Wizard Specific */
-  .wizard-note { background: #2e2521; border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14.5px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; }
-  .helper-text { font-size: 13px; color: var(--ink-soft); background: #1a1817; padding: 10px 14px; border-radius: 10px; margin-top: 8px; border: 1px solid var(--line); display: none; line-height: 1.4; }
+  .wizard-note { background: #2d2420; border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14.5px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; }
+  .helper-text { font-size: 13px; color: var(--ink-soft); background: #1a1e26; padding: 10px 14px; border-radius: 10px; margin-top: 8px; border: 1px solid var(--line); display: none; line-height: 1.4; }
   .helper-text.show { display: block; }
 
   .progress-dots { display: flex; justify-content: center; gap: 8px; margin: 10px 0 22px; }
-  .progress-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: #383532; transition: background 0.3s; }
+  .progress-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: #2d3748; transition: background 0.3s; }
   .progress-dots .dot.active { background: var(--sage); }
   
   .wizard-footer { display: flex; gap: 10px; margin-top: 20px; width: 100%; align-items: stretch; }
   .wizard-footer button { width: auto; margin-top: 0; flex: 1; padding: 15px 5px; min-width: 0; font-size: 15px; }
-  .wizard-footer .back { flex: 0.6; background: var(--card); color: var(--ink-soft); box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 1.5px solid var(--line); }
+  .wizard-footer .back { flex: 0.6; background: var(--card); color: var(--ink-soft); box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1.5px solid var(--line); }
 
   /* Slider Specific */
-  .slider-container { background: #1a1817; border: 1.5px solid var(--line); border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; }
+  .slider-container { background: #1a1e26; border: 1.5px solid var(--line); border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; }
   .slider-val { font-size: 36px; font-weight: 700; color: var(--terra); line-height: 1; margin-bottom: 4px; }
   .slider-label { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 16px; }
   input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
   input[type=range]:focus { outline: none; }
-  input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #383532; border-radius: 4px; }
-  input[type=range]::-webkit-slider-thumb { height: 24px; width: 24px; border-radius: 50%; background: var(--bg); cursor: pointer; -webkit-appearance: none; margin-top: -8px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); border: 2px solid var(--sage); transition: transform 0.1s; }
+  input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #2d3748; border-radius: 4px; }
+  input[type=range]::-webkit-slider-thumb { height: 24px; width: 24px; border-radius: 50%; background: var(--bg); cursor: pointer; -webkit-appearance: none; margin-top: -8px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid var(--sage); transition: transform 0.1s; }
   input[type=range]::-webkit-slider-thumb:active { transform: scale(1.1); }
-  .deficit-box { background: #1f2b1f; border-radius: 12px; padding: 14px; font-size: 14px; color: var(--sage); line-height: 1.5; margin-top: 16px; text-align: left; }
+  .deficit-box { background: #1a2a1b; border-radius: 12px; padding: 14px; font-size: 14px; color: var(--sage); line-height: 1.5; margin-top: 16px; text-align: left; }
   
-  .teaser-card { background: #2e2521; border: 1px dashed var(--terra); box-shadow: none; }
+  .teaser-card { background: #2d2420; border: 1px dashed var(--terra); box-shadow: none; }
   .teaser-card h3 { color: var(--terra); display: flex; align-items: center; gap: 6px; }
   
-  .ai-box { background: linear-gradient(135deg, #2e2521 0%, #201a17 100%); border-left: 4px solid var(--terra); padding: 16px; border-radius: 14px; font-size: 15px; line-height: 1.55; min-height: 60px; color: var(--ink); }
+  .ai-box { background: linear-gradient(135deg, #2d2420 0%, #1f1a18 100%); border-left: 4px solid var(--terra); padding: 16px; border-radius: 14px; font-size: 15px; line-height: 1.55; min-height: 60px; color: var(--ink); }
   .ai-box.thinking { color: var(--ink-soft); font-style: italic; }
   
   .meal-list { list-style: none; padding: 0; margin: 0; }
-  .meal-list li { background: #1a1817; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; color: var(--ink); }
+  .meal-list li { background: #1a1e26; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; color: var(--ink); }
   .meal-meta { color: var(--ink-soft); font-size: 12px; margin-top: 2px; }
   .meal-list .del { background: #3b1f20; color: #f87171; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; padding: 0; margin: 0; cursor: pointer; box-shadow: none; }
   .meal-list .del:active { transform: scale(0.95); }
@@ -184,7 +184,7 @@
   .week-row:last-child { border-bottom: none; padding-bottom: 0; }
   .week-top { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 7px; color: var(--ink); }
   .week-row.today .week-top span:first-child { color: var(--sage); }
-  .week-bar-wrap { height: 8px; background: #383532; border-radius: 4px; overflow: hidden; }
+  .week-bar-wrap { height: 8px; background: #2d3748; border-radius: 4px; overflow: hidden; }
   .week-bar { height: 100%; background: var(--terra); border-radius: 4px; transition: width 0.4s ease; }
   .week-sub { font-size: 12px; color: var(--ink-soft); margin-top: 6px; }
 
@@ -192,29 +192,29 @@
   .snap-date-header:first-child { margin-top: 4px; }
   .snap-card { display: flex; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 10px; margin-bottom: 8px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.05s; }
   .snap-card:active { transform: scale(0.99); }
-  .snap-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; flex-shrink: 0; background: #383532; }
+  .snap-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; flex-shrink: 0; background: #2d3748; }
   .snap-info { flex: 1; min-width: 0; }
   .snap-desc { font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
   .snap-card .del { background: #3b1f20; color: #f87171; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; padding: 0; margin: 0; cursor: pointer; flex-shrink: 0; box-shadow: none; }
 
   /* Progress Page Styles */
-  .metric-toggle { display: flex; background: #383532; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+  .metric-toggle { display: flex; background: #2d3748; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
   .metric-toggle button { flex: 1; border-radius: 0; background: transparent; color: var(--ink-soft); margin: 0; padding: 12px; font-size: 14px; box-shadow: none; }
   .metric-toggle button.active { background: var(--sage); color: white; box-shadow: none; }
   .navy-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .navy-inputs input { padding: 10px; font-size: 14px; text-align: center; }
   .navy-inputs label { text-align: center; margin: 4px 0 0; font-size: 11px; }
 
-  .result-box { background: #1f2b1f; border-radius: 12px; padding: 16px; margin-top: 16px; border-left: 4px solid var(--sage); display: none; }
+  .result-box { background: #1a2a1b; border-radius: 12px; padding: 16px; margin-top: 16px; border-left: 4px solid var(--sage); display: none; }
   .result-box.show { display: block; }
   .result-title { font-size: 24px; font-weight: 700; color: var(--sage); margin-bottom: 8px; }
   .result-desc { font-size: 13px; color: var(--ink); line-height: 1.5; }
-  .result-range { font-size: 12px; color: var(--ink-soft); margin-top: 8px; display: block; border-top: 1px solid #383532; padding-top: 8px; }
+  .result-range { font-size: 12px; color: var(--ink-soft); margin-top: 8px; display: block; border-top: 1px solid #2d3748; padding-top: 8px; }
 
   /* Chart */
   .chart-container { background: var(--card); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); margin-top: 16px; border: 1px solid var(--line); }
   .chart-toggle { display: flex; gap: 10px; margin-bottom: 16px; }
-  .chart-toggle button { background: #383532; color: var(--ink-soft); margin: 0; padding: 8px 12px; width: auto; font-size: 13px; box-shadow: none; }
+  .chart-toggle button { background: #2d3748; color: var(--ink-soft); margin: 0; padding: 8px 12px; width: auto; font-size: 13px; box-shadow: none; }
   .chart-toggle button.active { background: var(--sage); color: white; }
   .svg-chart { width: 100%; height: 150px; overflow: visible; }
   .chart-line { fill: none; stroke: var(--terra); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
@@ -246,29 +246,15 @@
   
   .status { text-align: center; font-size: 13px; margin-top: 8px; min-height: 18px; }
   .status.success { color: var(--sage); } .status.error { color: #f87171; }
-  .recipe-card { background: #1a1817; border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+  .recipe-card { background: #1a1e26; border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
   .recipe-title { font-weight: 700; margin-bottom: 6px; font-size: 15px; color: var(--ink); }
   .recipe-body { font-size: 14px; color: var(--ink-soft); line-height: 1.5; white-space: pre-wrap; }
   .hidden { display: none !important; }
 
-  /* Frosted Glass Chat Overlay */
-  .chat-overlay { 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(28, 27, 25, 0.85); 
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 200; 
-    display: flex; 
-    flex-direction: column; 
-    opacity: 0; 
-    pointer-events: none; 
-    transform: translateY(20px) scale(0.95); 
-    transition: opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-  }
-  .chat-overlay.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
-
-  .chat-header { background: transparent; padding: 14px 16px; padding-top: max(14px, env(safe-area-inset-top)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  /* Chat Overlay */
+  .chat-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: none; flex-direction: column; }
+  .chat-overlay.open { display: flex; }
+  .chat-header { background: var(--card); padding: 14px 16px; padding-top: max(14px, env(safe-area-inset-top)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
   .chat-close { background: transparent; color: var(--ink-soft); font-size: 24px; border: none; cursor: pointer; padding: 4px; width: auto; margin: 0; box-shadow: none; }
 
   .chat-messages { flex: 1; overflow-y: auto; padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; max-width: 500px; margin: 0 auto; width: 100%; }
@@ -278,17 +264,17 @@
   .msg-wrapper { display: flex; flex-direction: column; width: 100%; margin-bottom: 8px; }
   .msg-wrapper.user { align-items: flex-end; }
   .msg-wrapper.ai { align-items: flex-start; }
-  .msg-time { font-size: 11px; color: #7a7570; margin-bottom: 4px; margin-left: 4px; margin-right: 4px; }
+  .msg-time { font-size: 11px; color: #64748b; margin-bottom: 4px; margin-left: 4px; margin-right: 4px; }
   .chat-msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.45; white-space: pre-wrap; position: relative; }
-  .chat-msg.ai { background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 4px; color: var(--ink); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-  .chat-msg.user { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; border-bottom-right-radius: 4px; box-shadow: 0 2px 10px rgba(139, 168, 136, 0.2); }
+  .chat-msg.ai { background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 4px; color: var(--ink); }
+  .chat-msg.user { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; border-bottom-right-radius: 4px; }
   
   /* TTS Button */
-  .tts-btn { display: inline-block; margin-top: 8px; background: #332e2a; border: none; padding: 4px 8px; border-radius: 12px; font-size: 13px; cursor: pointer; color: var(--ink-soft); width: auto; box-shadow: none; }
+  .tts-btn { display: inline-block; margin-top: 8px; background: #2d3748; border: none; padding: 4px 8px; border-radius: 12px; font-size: 13px; cursor: pointer; color: var(--ink-soft); width: auto; box-shadow: none; }
   .tts-btn.speaking { background: var(--sage); color: white; }
 
   /* Chat Action Card */
-  .chat-action-card { background: #2e2521; border: 1px solid var(--terra); border-radius: 16px; padding: 14px; margin: 8px 0 16px 0; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 85%; }
+  .chat-action-card { background: #2d2420; border: 1px solid var(--terra); border-radius: 16px; padding: 14px; margin: 8px 0 16px 0; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 85%; }
   .chat-action-info { font-size: 14px; color: var(--ink); line-height: 1.4; }
   .chat-action-info strong { font-size: 15px; color: var(--terra); display: block; margin-bottom: 4px; }
   .chat-action-card button { margin-top: 0; padding: 10px; font-size: 14px; width: 100%; background: var(--terra); }
@@ -296,36 +282,36 @@
   /* Floating Quick Chips */
   .chat-quick-chips { display: flex; gap: 8px; padding: 0 16px 12px; overflow-x: auto; white-space: nowrap; width: 100%; max-width: 500px; margin: 0 auto; }
   .chat-quick-chips::-webkit-scrollbar { display: none; }
-  .chat-quick-chips .chip-btn { background: var(--card); border: 1px solid var(--line); font-size: 13px; padding: 8px 14px; color: var(--ink); }
+  .chat-quick-chips .chip-btn { background: var(--card); border: 1px solid var(--line); font-size: 13px; padding: 8px 14px; }
 
-  .typing-wrapper { background: transparent; padding: 0 16px 8px 16px; max-width: 500px; margin: 0 auto; width: 100%; display: none; }
+  .typing-wrapper { background: var(--bg); padding: 0 16px 8px 16px; max-width: 500px; margin: 0 auto; width: 100%; display: none; }
   .typing-wrapper.show { display: block; }
   
-  .typing-indicator { display: flex; gap: 4px; padding: 14px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; border-bottom-left-radius: 4px; width: fit-content; align-items: center; height: 44px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+  .typing-indicator { display: flex; gap: 4px; padding: 14px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; border-bottom-left-radius: 4px; width: fit-content; align-items: center; height: 44px; }
   .typing-dots { display: flex; gap: 5px; }
   .typing-dots span { display: block; width: 6px; height: 6px; background: var(--ink-soft); border-radius: 50%; animation: bounce 1.2s infinite ease-in-out both; }
   .typing-dots span:nth-child(1) { animation-delay: -0.24s; }
   .typing-dots span:nth-child(2) { animation-delay: -0.12s; }
   @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-  .chat-input-area { background: transparent; padding: 8px 12px max(8px, env(safe-area-inset-bottom)); border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 8px; max-width: 500px; margin: 0 auto; width: 100%; align-items: center; }
-  .chat-input-area input { flex: 1; border-radius: 20px; padding: 12px 16px; margin: 0; font-size: 15px; background: var(--card); border: 1.5px solid var(--line); color: var(--ink); }
+  .chat-input-area { background: var(--card); padding: 8px 12px max(8px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); display: flex; gap: 8px; max-width: 500px; margin: 0 auto; width: 100%; align-items: center; }
+  .chat-input-area input { flex: 1; border-radius: 20px; padding: 12px 16px; margin: 0; font-size: 15px; background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); }
   .chat-input-area button { width: 44px; height: 44px; margin: 0; padding: 0; border-radius: 50%; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: none; }
-  .chat-camera-btn { background: #332e2a; color: var(--ink); }
-  .chat-send-btn { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; box-shadow: 0 2px 8px rgba(139, 168, 136, 0.2); }
+  .chat-camera-btn { background: #2d3748; color: var(--ink); }
+  .chat-send-btn { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; box-shadow: 0 2px 8px rgba(122, 158, 123, 0.2); }
 
   /* Scan Modal */
   .scan-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 400; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(3px); }
   .scan-modal-overlay.show { opacity: 1; pointer-events: auto; }
   .scan-modal-card { background: var(--card); border-radius: 24px; padding: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
   .scan-modal-overlay.show .scan-modal-card { transform: translateY(0); }
-  .scan-img { width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 16px; background: #383532; }
+  .scan-img { width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 16px; background: #2d3748; }
   .scan-title { font-size: 18px; font-weight: 700; margin: 0 0 16px; color: var(--ink); }
   .macro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .macro-item { background: #1a1817; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid var(--line); }
+  .macro-item { background: #1a1e26; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid var(--line); }
   .macro-val { font-size: 18px; font-weight: 700; color: var(--sage); }
   .macro-label { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; margin-top: 2px; }
-  .scan-advice { font-size: 14px; color: var(--ink-soft); font-style: italic; background: #2e2521; padding: 12px; border-radius: 12px; border-left: 3px solid var(--terra); margin-bottom: 16px; }
+  .scan-advice { font-size: 14px; color: var(--ink-soft); font-style: italic; background: #2d2420; padding: 12px; border-radius: 12px; border-left: 3px solid var(--terra); margin-bottom: 16px; }
   
   /* Allergy Warning */
   .allergy-warning { background: #3b1f20; border-left: 4px solid #f87171; padding: 12px; border-radius: 10px; font-size: 13px; color: #f87171; line-height: 1.5; margin-bottom: 16px; display: none; }
@@ -337,7 +323,7 @@
   .bd-calories { font-size: 32px; font-weight: 700; color: var(--ink); line-height: 1; }
   .bd-calories span { font-size: 16px; color: var(--ink-soft); font-weight: 500; }
   .bd-macros-row { display: flex; justify-content: center; gap: 16px; margin-top: 12px; }
-  .bd-macro { text-align: center; background: #1a1817; padding: 8px 16px; border-radius: 12px; border: 1px solid var(--line); flex: 1; }
+  .bd-macro { text-align: center; background: #1a1e26; padding: 8px 16px; border-radius: 12px; border: 1px solid var(--line); flex: 1; }
   .bd-macro-val { font-size: 16px; font-weight: 700; color: var(--sage); }
   .bd-macro-label { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; }
   .bd-meal-group { margin-bottom: 16px; }
@@ -345,7 +331,7 @@
   .bd-meal-item { display: flex; justify-content: space-between; font-size: 14px; padding: 6px 0; border-bottom: 1px dashed var(--line); color: var(--ink); }
   .bd-meal-item:last-child { border-bottom: none; }
 
-  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); display: flex; justify-content: space-around; padding: 10px 0 max(10px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); z-index: 50; box-shadow: 0 -4px 20px rgba(0,0,0,0.2); }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); display: flex; justify-content: space-around; padding: 10px 0 max(10px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); z-index: 50; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
   .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; color: var(--ink-soft); cursor: pointer; font-weight: 600; background: none; border: none; flex: 1; padding: 0; margin: 0; transition: color 0.2s; box-shadow: none; }
   .nav-item.active { color: var(--sage); }
   .nav-icon { font-size: 20px; margin-bottom: 4px; }
@@ -361,7 +347,7 @@
     background: linear-gradient(180deg, var(--terra) 0%, var(--terra-dark) 100%); 
     color: white; 
     border: none; 
-    box-shadow: 0 6px 20px rgba(217, 139, 106, 0.4), inset 0 2px 0 rgba(255,255,255,0.1); 
+    box-shadow: 0 6px 20px rgba(212, 129, 102, 0.3), inset 0 2px 0 rgba(255,255,255,0.2); 
     display: none; 
     align-items: center; 
     justify-content: center; 
@@ -372,11 +358,11 @@
     margin: 0; 
   }
   .floating-chat-btn.show { display: flex; }
-  .floating-chat-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(217, 139, 106, 0.5), inset 0 2px 0 rgba(255,255,255,0.1); }
-  .floating-chat-btn:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(217, 139, 106, 0.3); }
+  .floating-chat-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(212, 129, 102, 0.4), inset 0 2px 0 rgba(255,255,255,0.2); }
+  .floating-chat-btn:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(212, 129, 102, 0.2); }
   .floating-chat-btn::after { content: ''; position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; background: #ef4444; border-radius: 50%; border: 2px solid var(--bg); }
   
-  .photo-btn { background: #1a1817; color: var(--ink); border: 2px dashed var(--line); border-radius: 16px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; display: block; margin: 0; }
+  .photo-btn { background: #1a1e26; color: var(--ink); border: 2px dashed var(--line); border-radius: 16px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; display: block; margin: 0; }
   .photo-btn:hover { background: var(--card); border-color: var(--sage); }
   .photo-btn:active { transform: scale(0.98); }
 
@@ -455,7 +441,7 @@
   <div class="header-actions"><button class="icon-btn" onclick="openSettings()">⚙️</button></div>
 </div>
 
-<!-- FROSTED GLASS CHAT OVERLAY -->
+<!-- CHAT OVERLAY -->
 <div class="chat-overlay" id="chatOverlay">
   <div class="chat-header">
     <h3>🍃 Dietitian</h3>
@@ -540,7 +526,7 @@
   </div>
   <div id="bdMealsContainer"></div>
   
-  <details class="manual-add" style="margin-top: 20px; background: #1a1817; padding: 16px; border-radius: 16px; border: 1px solid var(--line);">
+  <details class="manual-add" style="margin-top: 20px; background: #1a1e26; padding: 16px; border-radius: 16px; border: 1px solid var(--line);">
     <summary style="color: var(--ink);">Add a meal by hand</summary>
     <label style="margin-top:16px;">What did you eat?</label>
     <input type="text" id="mealDesc" placeholder="e.g. 100g chicken breast">
@@ -679,7 +665,7 @@
   
   <!-- HOME PAGE (Minimalist) -->
   <div id="page-home">
-    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V58)</span></div>
+    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V57)</span></div>
     <p class="hello-sub" id="helloSub">Here's how today's going.</p>
     
     <div class="smart-tip" id="smartTipBanner">
@@ -759,7 +745,7 @@
         <button class="chip-btn" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; margin: 0;" onclick="toggleMeasureGuide()">📏 How to measure</button>
       </div>
       
-      <div id="measureGuide" style="display: none; background: #1a1817; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5;">
+      <div id="measureGuide" style="display: none; background: #1a1e26; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5;">
         <strong>Neck:</strong> Measure just below the voice box, keeping the tape level and relaxed.<br><br>
         <strong>Waist:</strong> Measure at your narrowest point, breathe out normally, and don't pull the tape tight.<br><br>
         <strong>Hip:</strong> Measure at the widest part, keeping your feet together.<br><br>
@@ -813,7 +799,7 @@
   <h2>Settings</h2>
   <button class="btn-soft" onclick="editProfile()">✏️ Edit my profile</button>
   
-  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; background:#332e2a; padding:15px; border-radius:14px; border:none;">
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; background:#2d3748; padding:15px; border-radius:14px; border:none;">
     <span style="font-weight:600; font-size:16px; color:var(--ink);">🍎 Smart Tips</span>
     <input type="checkbox" id="toggleTips" checked onchange="toggleSmartTips()" style="width:24px; height:24px; accent-color:var(--sage); cursor:pointer;">
   </div>
@@ -842,7 +828,7 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const APP_VERSION = 'V58';
+  const APP_VERSION = 'V57';
   const BIRTH_YEAR = 1969;
   const FIORA_AGE = new Date().getFullYear() - BIRTH_YEAR;
 
@@ -1362,7 +1348,7 @@
       const container = document.getElementById('chatMessages');
       container.scrollTop = container.scrollHeight;
       document.getElementById('chatInput').focus();
-    }, 500); 
+    }, 100); 
   };
   
   window.closeChat = function() { 
@@ -1942,4 +1928,401 @@
     document.getElementById('snapViewCal').textContent = m.calories || 0;
     document.getElementById('snapViewPro').textContent = (m.protein || 0) + 'g';
     document.getElementById('snapViewCarb').textContent = (m.carbs || 0) + 'g';
-    document.getElementById('snapViewFat
+    document.getElementById('snapViewFat').textContent = (m.fat || 0) + 'g';
+    document.getElementById('snapViewFibre').textContent = (m.fibre || 0) + 'g';
+    document.getElementById('snapViewSatFat').textContent = (m.satFat || 0) + 'g';
+    const t = MEAL_TYPE_MAP[m.mealType];
+    const meta = [];
+    if (t) meta.push(t.icon + ' ' + t.label);
+    if (m.dateKey) meta.push(m.dateKey);
+    document.getElementById('snapViewMeta').textContent = meta.join(' · ');
+    document.getElementById('snapViewModal').classList.add('show');
+  };
+
+  window.closeSnapView = function() { document.getElementById('snapViewModal').classList.remove('show'); };
+
+  function formatChatText(s) {
+    return escapeHtml(s)
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,!?]|$)/g, '$1<em>$2</em>');
+  }
+
+  function appendChatMsg(text, sender, time) {
+    const container = document.getElementById('chatMessages');
+    const wrapper = document.createElement('div');
+    wrapper.className = `msg-wrapper ${sender}`;
+    
+    let ttsBtn = '';
+    if (sender === 'ai') {
+       const safeText = text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+       ttsBtn = `<button class="tts-btn" onclick="speakText('${safeText}', this)">🔊 Listen</button>`;
+    }
+
+    wrapper.innerHTML = `<div class="msg-time">${escapeHtml(time)}</div><div class="chat-msg ${sender}">${formatChatText(text)}${ttsBtn}</div>`;
+    container.appendChild(wrapper);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  window.signInWithGoogle = async function() {
+    try { await signInWithPopup(auth, new GoogleAuthProvider()); } 
+    catch (e) { setStatus('status', 'Failed: ' + e.message, true); }
+  };
+
+  window.logout = async function() { closeSettings(); await signOut(auth); };
+
+  window.toggleGoalWeight = function() {
+    const g = document.getElementById('goal').value;
+    document.getElementById('goalWeightWrap').style.display = (g === 'lose_weight' || g === 'heart_health') ? 'block' : 'none';
+  };
+
+  window.showWizard = function(step) {
+    [1,2,3,4].forEach(n => document.getElementById('wiz'+n).classList.toggle('hidden', n !== step));
+    document.querySelectorAll('#progressDots .dot').forEach((d,i) => { d.classList.toggle('active', i < step); });
+    window.scrollTo(0,0);
+    if (step === 2) updateActivityHelp();
+  };
+
+  window.wizNext = function(step) {
+    if (step === 3) {
+      const p = buildProfileObj(); 
+      const targets = computeTargets(p);
+      calculatedTDEE = targets.tdee || 2000;
+      document.getElementById('wizTdee').textContent = calculatedTDEE;
+      
+      let initialTarget = targets.calorieTarget || 1800;
+      if (currentProfile && currentProfile.targets) {
+        initialTarget = currentProfile.targets.calorieTarget || initialTarget;
+      }
+      
+      document.getElementById('calSlider').min = Math.max(1200, Math.round((targets.bmr || 1200) / 10) * 10);
+      document.getElementById('calSlider').max = Math.round((calculatedTDEE + 500) / 50) * 50;
+      document.getElementById('calSlider').value = initialTarget;
+      
+      updateSliderUI(initialTarget);
+    }
+    showWizard(step + 1);
+  };
+  
+  window.wizBack = function(step) { showWizard(step - 1); };
+
+  document.querySelectorAll('.chip input').forEach(cb => {
+    cb.addEventListener('change', () => cb.closest('.chip').classList.toggle('on', cb.checked));
+  });
+
+  function buildProfileObj() {
+    const meds = Array.from(document.querySelectorAll('.med:checked')).map(cb => cb.value);
+    
+    const hVal = parseFloat(document.getElementById('heightCm').value);
+    const wVal = parseFloat(document.getElementById('currentWeightKg').value);
+    
+    return {
+      name: 'Fiona', age: FIORA_AGE,
+      heightCm: hVal || currentProfile?.heightCm || null,
+      currentWeightKg: wVal || currentProfile?.currentWeightKg || null,
+      goalWeightKg: parseFloat(document.getElementById('goalWeightKg').value) || currentProfile?.goalWeightKg || null,
+      goal: document.getElementById('goal').value, pace: document.getElementById('pace').value, activityLevel: document.getElementById('activityLevel').value,
+      mealsPerDay: document.getElementById('mealsPerDay').value, cooking: document.getElementById('cooking').value, budget: document.getElementById('budget').value,
+      medicalConditions: meds.length ? meds : ['none'], allergies: document.getElementById('allergies').value.trim(), dislikes: document.getElementById('dislikes').value.trim(),
+      typicalBreakfast: document.getElementById('typicalBreakfast').value.trim(), typicalLunch: document.getElementById('typicalLunch').value.trim(), typicalDinner: document.getElementById('typicalDinner').value.trim(),
+      snacking: document.getElementById('snacking').value, waterNow: parseInt(document.getElementById('waterNow').value) || 4, alcohol: document.getElementById('alcohol').value,
+      exercise: document.getElementById('exercise').value, motivation: document.getElementById('motivation').value.trim(), email: currentUser?.email || null,
+      weightHistory: currentProfile?.weightHistory || []
+    };
+  }
+
+  function computeTargets(p) {
+    const w = p.currentWeightKg, h = p.heightCm, a = FIORA_AGE;
+    if (!w || !h) return { bmr: 1200, calorieTarget: 1800, proteinTarget: 60, fibreTarget: 25, waterGoal: 8, tdee: 2000 };
+    const bmr = Math.round(10*w + 6.25*h - 5*a - 161);
+    const actMultiplier = { sedentary: 1.2, light: 1.375, moderate: 1.55, active: 1.725 }[p.activityLevel] || 1.375;
+    const tdee = Math.round(bmr * actMultiplier);
+    const paceAdjust = { gentle: -250, steady: -500, faster: -750, na: 0 }[p.pace] || 0;
+    let calorieTarget = p.goal === 'lose_weight' ? tdee + paceAdjust : tdee;
+    calorieTarget = Math.max(1200, Math.round(calorieTarget / 10) * 10);
+    const proteinTarget = Math.round(w * 1.2);
+    const fibreTarget = Math.round((calorieTarget / 1000) * 14); 
+    const waterGoal = Math.max(8, (p.waterNow || 4) + 2);
+    return { bmr, calorieTarget, proteinTarget, fibreTarget, waterGoal, tdee };
+  }
+
+  window.saveProfile = async function() {
+    const btn = document.getElementById('saveBtn');
+    const profile = buildProfileObj();
+    
+    if (!profile.heightCm) {
+        setStatus('formStatus', '⚠️ Please enter your height.', true);
+        return;
+    }
+
+    profile.createdAt = new Date().toISOString();
+    profile.setupComplete = true;
+    
+    profile.targets = computeTargets(profile);
+    
+    const sliderVal = parseInt(document.getElementById('calSlider').value);
+    if (!isNaN(sliderVal)) {
+      profile.targets.calorieTarget = sliderVal;
+      profile.targets.fibreTarget = Math.round((sliderVal / 1000) * 14);
+    }
+
+    btn.disabled = true; setStatus('formStatus', 'Saving…');
+    try {
+      await setDoc(doc(db, 'profiles', currentUser.uid), profile, { merge: true });
+      currentProfile = profile; setStatus('formStatus', '✅ All set!');
+      await loadTodayData(); setTimeout(renderDashboard, 500);
+    } catch (e) {
+      setStatus('formStatus', '❌ ' + e.message, true); btn.disabled = false;
+    }
+  };
+
+  async function loadTodayData() {
+    activeDayKey = todayKey();
+    
+    if (unsubMeals) unsubMeals();
+    try {
+      const q = query(collection(db, 'meals', currentUser.uid, 'items'), where('dateKey', '==', todayKey()));
+      unsubMeals = onSnapshot(q, (snap) => { 
+        let meals = snap.docs.map(d => ({ id: d.id, ...d.data() })); 
+        meals.sort((a, b) => {
+          const timeA = a.createdAt?.toMillis() || 0;
+          const timeB = b.createdAt?.toMillis() || 0;
+          return timeA - timeB;
+        });
+        todaysMeals = meals; 
+        updateRings(); 
+      }, (err) => { 
+        console.error("Meals fetch error:", err);
+        todaysMeals = []; updateRings(); 
+      });
+    } catch (e) { todaysMeals = []; }
+
+    if (unsubSnaps) unsubSnaps();
+    try {
+      const qSnaps = query(collection(db, 'meals', currentUser.uid, 'items'), orderBy('createdAt', 'desc'), limit(80));
+      unsubSnaps = onSnapshot(qSnaps, (snap) => {
+        allSnaps = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(m => m.photo);
+        renderSnaps();
+      });
+    } catch (e) { allSnaps = []; }
+
+    if (unsubRecipes) unsubRecipes();
+    try {
+      const q = query(collection(db, 'recipes', currentUser.uid, 'items'), orderBy('createdAt', 'desc'));
+      unsubRecipes = onSnapshot(q, (snap) => { savedRecipes = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderRecipes(); }, () => { savedRecipes = []; renderRecipes(); });
+    } catch (e) { savedRecipes = []; }
+    
+    await loadChatHistory();
+  }
+
+  window.addMeal = async function() {
+    const descEl = document.getElementById('mealDesc');
+    const typeEl = document.getElementById('mealType');
+    const btn = document.getElementById('addMealBtn');
+    const description = descEl.value.trim();
+    
+    if (!description) { setStatus('mealStatus', 'Please write what you ate.', true); return; }
+    
+    btn.disabled = true;
+    btn.textContent = "Calculating...";
+    setStatus('mealStatus', 'Asking dietitian for macros...');
+
+    try {
+      const prompt = `Extract the nutritional macros for this food. Respond ONLY with a valid JSON object: {"description": "clean title", "calories": 000, "protein": 00, "carbs": 00, "fat": 00, "fibre": 00, "satFat": 00}. Food: "${description}"`;
+      
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'system', content: prompt }] })
+      });
+
+      const rawText = await res.text(); let data;
+      try { data = JSON.parse(rawText); } catch(e) { throw new Error("AI failed to parse."); }
+      if (!res.ok) throw new Error(data.error || "Error");
+      
+      const raw = data.choices?.[0]?.message?.content || '';
+      const match = raw.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error("Could not read macro data.");
+      
+      const parsed = JSON.parse(match[0]);
+
+      await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
+        description: parsed.description || description,
+        calories: parsed.calories || 0,
+        protein: parsed.protein || 0,
+        carbs: parsed.carbs || 0,
+        fat: parsed.fat || 0,
+        fibre: parsed.fibre || 0,
+        satFat: parsed.satFat || 0,
+        mealType: (typeEl && typeEl.value) || defaultMealType(), 
+        dateKey: todayKey(), 
+        createdAt: serverTimestamp()
+      });
+      
+      descEl.value = '';
+      if (typeEl) typeEl.value = defaultMealType();
+      setStatus('mealStatus', '✅ Logged with macros!');
+      setTimeout(() => setStatus('mealStatus', ''), 2000);
+
+    } catch (e) { 
+      setStatus('mealStatus', '❌ ' + e.message, true); 
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "✨ Calculate & Log";
+    }
+  };
+
+  window.deleteMeal = async function(id) { try { await deleteDoc(doc(db, 'meals', currentUser.uid, 'items', id)); } catch (e) {} };
+
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function updateRings() {
+    const t = currentProfile?.targets || {}; const calGoal = t.calorieTarget || 2000;
+    
+    const calTotal = todaysMeals.reduce((s, m) => s + (m.calories || 0), 0); 
+    const cPct = Math.min(1, calTotal / calGoal);
+    const cRing = document.getElementById('calRing'); if (cRing) cRing.setAttribute('stroke-dashoffset', RING_CIRC * (1 - cPct));
+    const cText = document.getElementById('calRingText'); if (cText) cText.textContent = calTotal;
+    const cCount = document.getElementById('calCount'); if (cCount) cCount.textContent = calTotal;
+    const cGoal = document.getElementById('calGoal'); if (cGoal) cGoal.textContent = calGoal;
+
+    const proteinTotal = todaysMeals.reduce((s, m) => s + (Number(m.protein) || 0), 0);
+    const pCount = document.getElementById('proteinCount'); if (pCount) pCount.textContent = Math.round(proteinTotal);
+    const pGoal = document.getElementById('proteinGoal'); if (pGoal) pGoal.textContent = t.proteinTarget || '—';
+  }
+
+  window.cookNow = async function() {
+    const prompt = document.getElementById('cookPrompt').value.trim();
+    if (!prompt) { setStatus('cookStatus', 'Tell me what you have or what you fancy.', true); return; }
+    setStatus('cookStatus', 'Creating a recipe…');
+    const p = currentProfile; const t = p.targets || {}; const remainingCal = Math.max(200, (t.calorieTarget || 2000) - todaysMeals.reduce((s,m)=>s+(m.calories||0),0));
+    
+    const allergies = p.allergies || 'None';
+    const dislikes = p.dislikes || 'None';
+    
+    const system = `You are a warm, encouraging cookbook author helping ${p.name}. Dietary needs: ${(p.medicalConditions||[]).join(', ')}. ALLERGIES: ${allergies}. DISLIKES: ${dislikes}. She wants roughly ${remainingCal} calories for this meal. CRITICAL: NEVER include allergens in the recipe. Keep sodium moderate unless she has blood pressure concerns.\nRespond ONLY with a JSON object: {"title": "short recipe name", "ingredients": "line-separated list", "steps": "numbered steps, short"}. No extra text.`;
+    try {
+      const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] }) });
+      const rawText = await res.text(); let data;
+      try { data = JSON.parse(rawText); } catch (e) { throw new Error("Server error"); }
+      if (!res.ok) throw new Error(data.error || "Server error");
+      const raw = data.choices?.[0]?.message?.content || ''; let parsed;
+      try { const match = raw.match(/\{[\s\S]*\}/); parsed = JSON.parse(match ? match[0] : raw); } catch { parsed = { title: 'Recipe', ingredients: '', steps: raw }; }
+      setStatus('cookStatus', '');
+      await addDoc(collection(db, 'recipes', currentUser.uid, 'items'), { title: parsed.title || 'Recipe', ingredients: parsed.ingredients || '', steps: parsed.steps || '', prompt, createdAt: serverTimestamp() });
+      document.getElementById('cookPrompt').value = '';
+    } catch (e) { setStatus('cookStatus', '⚠️ Error: ' + e.message, true); }
+  };
+
+  function renderRecipes() {
+    const el = document.getElementById('recipeList'); if (!el) return;
+    if (!savedRecipes.length) { el.innerHTML = '<div class="empty">Your saved recipes will appear here.</div>'; return; }
+    el.innerHTML = savedRecipes.map(r => {
+      const imgHtml = r.photo ? `<img src="${r.photo}" style="width:100%; height:120px; object-fit:cover; border-radius:12px; margin-bottom:12px;">` : '';
+      return `<div class="recipe-card">
+        ${imgHtml}
+        <div class="recipe-title">${escapeHtml(r.title)}</div>
+        <div class="recipe-body">${escapeHtml(r.ingredients).replace(/\n/g,'<br>')}</div>
+        <details style="margin-top:8px;"><summary style="cursor:pointer;color:var(--sage);font-size:14px;font-weight:600;">Show steps</summary><div class="recipe-body" style="margin-top:8px;">${escapeHtml(r.steps).replace(/\n/g,'<br>')}</div></details>
+        <div class="recipe-actions"><button class="btn-soft" onclick="deleteRecipe('${r.id}')">Remove</button></div>
+      </div>`;
+    }).join('');
+  }
+
+  window.deleteRecipe = async function(id) { try { await deleteDoc(doc(db, 'recipes', currentUser.uid, 'items', id)); } catch (e) {} };
+
+  const goalLabels = { lose_weight: '🎯 Losing weight', maintain: '⚖️ Feeling good', heart_health: '❤️ Heart health', diabetes: '🩸 Blood sugar', energy: '⚡ More energy' };
+
+  function renderDashboard() {
+    document.getElementById('greeting').innerHTML = 'Hi, ' + escapeHtml(currentProfile.name) + ' 🌿 <span class="version-tag">(' + APP_VERSION + ')</span>';
+    document.getElementById('helloSub').textContent = 'Here\'s how today\'s going.';
+    document.getElementById('goalBadge').textContent = goalLabels[currentProfile.goal] || 'Goal';
+    const typeEl = document.getElementById('mealType'); if (typeEl) typeEl.value = defaultMealType();
+    updateRings(); renderRecipes(); renderSnaps(); switchMainPage('home'); showScreen('dashScreen');
+    showRandomTip();
+    showCoachMark();
+  }
+
+  window.editProfile = function() {
+    closeSettings(); const p = currentProfile;
+    document.getElementById('heightCm').value = p.heightCm || ''; document.getElementById('currentWeightKg').value = p.currentWeightKg || '';
+    document.getElementById('goalWeightKg').value = p.goalWeightKg || ''; document.getElementById('goal').value = p.goal;
+    document.getElementById('pace').value = p.pace; document.getElementById('activityLevel').value = p.activityLevel;
+    document.getElementById('mealsPerDay').value = p.mealsPerDay; document.getElementById('cooking').value = p.cooking;
+    document.getElementById('budget').value = p.budget; document.getElementById('allergies').value = p.allergies || '';
+    document.getElementById('dislikes').value = p.dislikes || ''; document.getElementById('typicalBreakfast').value = p.typicalBreakfast || '';
+    document.getElementById('typicalLunch').value = p.typicalLunch || ''; document.getElementById('typicalDinner').value = p.typicalDinner || '';
+    document.getElementById('snacking').value = p.snacking; document.getElementById('waterNow').value = p.waterNow || 4;
+    document.getElementById('alcohol').value = p.alcohol; document.getElementById('exercise').value = p.exercise;
+    document.getElementById('motivation').value = p.motivation || '';
+    document.querySelectorAll('.med').forEach(cb => { cb.checked = (p.medicalConditions || []).includes(cb.value); cb.closest('.chip').classList.toggle('on', cb.checked); });
+    toggleGoalWeight(); document.getElementById('saveBtn').textContent = 'Update profile ✓'; showWizard(1); showScreen('signupScreen');
+  };
+
+  window.openSettings = function() { 
+    document.getElementById('settingsSheet').classList.add('open'); 
+    document.getElementById('sheetOverlay').classList.add('open'); 
+  };
+  window.closeSettings = function() { document.getElementById('settingsSheet').classList.remove('open'); document.getElementById('sheetOverlay').classList.remove('open'); };
+
+  window.startFresh = async function() {
+    if (!currentUser) return;
+    if (!confirm('Start fresh?\n\nThis clears everything on this device — your profile, meals, water and saved recipes.')) return;
+    const uid = currentUser.uid;
+    try {
+      await deleteDoc(doc(db, 'profiles', uid));
+      const mealsSnap = await getDocs(collection(db, 'meals', uid, 'items')); for (const d of mealsSnap.docs) await deleteDoc(d.ref);
+      const waterSnap = await getDocs(collection(db, 'water', uid, 'days')); for (const d of waterSnap.docs) await deleteDoc(d.ref);
+      const recSnap = await getDocs(collection(db, 'recipes', uid, 'items')); for (const d of recSnap.docs) await deleteDoc(d.ref);
+      const chatSnap = await getDocs(collection(db, 'chats', uid, 'messages')); for (const d of chatSnap.docs) await deleteDoc(d.ref);
+      
+      closeSettings(); 
+      if (unsubMeals) { unsubMeals(); unsubMeals = null; } 
+      if (unsubRecipes) { unsubRecipes(); unsubRecipes = null; }
+      if (unsubChat) { unsubChat(); unsubChat = null; }
+      if (unsubSnaps) { unsubSnaps(); unsubSnaps = null; }
+      currentProfile = null; todaysMeals = []; savedRecipes = []; allSnaps = [];
+      
+      await signOut(auth);
+      window.location.reload(); 
+    } catch (e) { alert('Something went wrong clearing data: ' + e.message); }
+  };
+
+  setInterval(() => {
+    const k = todayKey();
+    if (k !== activeDayKey) {
+      activeDayKey = k;
+      if (currentUser && currentProfile) {
+        loadTodayData().then(() => { updateRings(); });
+      }
+    }
+  }, 60000);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { showScreen('loginScreen'); return; }
+    currentUser = user;
+    showScreen('loadingScreen');
+    try {
+      const snap = await getDoc(doc(db, 'profiles', user.uid));
+      if (snap.exists() && snap.data().setupComplete) {
+        currentProfile = snap.data();
+        await loadTodayData();
+        renderDashboard();
+      } else {
+        welcomeStep = 0;
+        document.getElementById('welcomeIcon').textContent = welcomeData[0].icon;
+        document.getElementById('welcomeTitle').textContent = welcomeData[0].title;
+        document.getElementById('welcomeText').textContent = welcomeData[0].text;
+        document.querySelectorAll('.welcome-dot').forEach((dot, i) => { dot.classList.toggle('active', i === 0); });
+        document.getElementById('welcomeBtn').textContent = "Next →";
+        showScreen('welcomeScreen');
+      }
+    } catch (e) { 
+      console.error("Firebase Error:", e); 
+      showScreen('loginScreen'); 
+      setStatus('status', 'Error: ' + e.message, true); 
+    }
+  });
+</script>
+
+</body>
+</html>
