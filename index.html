@@ -1,174 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-accent="rose" data-theme="espresso">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Fiona's Kitchen</title>
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="https://via.placeholder.com/192/8ba888/1c1b19?text=F">
+<link rel="apple-touch-icon" href="https://via.placeholder.com/192/c19a9a/231f1c?text=F">
+
+<!-- FOUC prevention: apply saved theme before paint -->
+<script>
+(function(){
+  try {
+    document.documentElement.setAttribute('data-accent', localStorage.getItem('fiona-accent') || 'rose');
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('fiona-theme') || 'espresso');
+  } catch(e){}
+})();
+</script>
 
 <!-- VERCEL ANALYTICS -->
 <script defer src="/_vercel/insights/script.js"></script>
 
 <style>
   :root {
-    /* Warm Espresso Midnight Palette */
-    --bg: #1c1b19; 
-    --card: #252321; 
-    --sage: #8ba888; 
-    --sage-dark: #6b8a68;
-    --terra: #d98b6a; 
-    --terra-dark: #b86b4e; 
-    --ink: #f4efe9; 
+    /* ═══ BASE: Espresso (dark) ═══ */
+    --bg: #231f1c;
+    --bg-rgb: 35, 31, 28;
+    --bg-deep: #1a1817;
+    --bg-soft: #332e2a;
+    --bg-tint: #2e2521;
+    --bg-tint-end: #201a17;
+    --bg-success: #1f2b1f;
+    --bg-danger: #3b1f20;
+    --bg-danger-border: #5a2a2b;
+    --card: #2a2622;
+    --ink: #f4efe9;
     --ink-soft: #a8a29e;
-    --line: #383532; 
+    --ink-muted: #7a7570;
+    --ink-rgb: 244, 239, 233;
+    --line: #3d3934;
+
+    /* ═══ SAGE (fixed secondary) ═══ */
+    --sage: #8d9c7f;
+    --sage-dark: #738a63;
+    --sage-rgb: 141, 156, 127;
+
+    /* ═══ ACCENT: Dusty Rose (default) ═══ */
+    --terra: #c19a9a;
+    --terra-dark: #a07b7b;
+    --terra-rgb: 193, 154, 154;
+    --unread: #e0a5a5;
+
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   }
+
+  /* ═══════════ THEMES ═══════════ */
+  [data-theme="dusk"] {
+    --bg: #332c25; --bg-rgb: 51, 44, 37;
+    --bg-deep: #262019; --bg-soft: #423a31;
+    --bg-tint: #3a2f26; --bg-tint-end: #2e251e;
+    --bg-success: #2a3629; --bg-danger: #442828; --bg-danger-border: #633232;
+    --card: #3d362d; --ink: #f2e9dc; --ink-soft: #b5a898;
+    --ink-muted: #8a8278; --ink-rgb: 242, 233, 220;
+    --line: #4a4036;
+  }
+  [data-theme="latte"] {
+    --bg: #a8987d; --bg-rgb: 168, 152, 125;
+    --bg-deep: #9a8a70; --bg-soft: #b8a890;
+    --bg-tint: #bcaa8e; --bg-tint-end: #a89074;
+    --bg-success: #9aab87; --bg-danger: #a58080; --bg-danger-border: #8a6565;
+    --card: #b8a890; --ink: #2a2018; --ink-soft: #5a4838;
+    --ink-muted: #7a6a5a; --ink-rgb: 42, 32, 24;
+    --line: #8a7a62;
+    --shadow: 0 4px 20px rgba(60, 45, 30, 0.2);
+  }
+  [data-theme="cream"] {
+    --bg: #ede4d3; --bg-rgb: 237, 228, 211;
+    --bg-deep: #e5dac6; --bg-soft: #e8ddc8;
+    --bg-tint: #f0e6d2; --bg-tint-end: #e8dcc2;
+    --bg-success: #d4dfc8; --bg-danger: #d4b0ac; --bg-danger-border: #c09894;
+    --card: #f7f0e2; --ink: #3a2f24; --ink-soft: #7a6a5a;
+    --ink-muted: #a09080; --ink-rgb: 58, 47, 36;
+    --line: #d4c7b0;
+    --shadow: 0 4px 20px rgba(60, 45, 30, 0.12);
+  }
+
+  /* ═══════════ ACCENTS ═══════════ */
+  [data-accent="rose"] { --terra: #c19a9a; --terra-dark: #a07b7b; --terra-rgb: 193, 154, 154; --unread: #e0a5a5; }
+  [data-accent="plum"] { --terra: #9a7d96; --terra-dark: #7d5f7a; --terra-rgb: 154, 125, 150; --unread: #d8a8d0; }
+  [data-accent="burgundy"] { --terra: #8a5050; --terra-dark: #6e3e3e; --terra-rgb: 138, 80, 80; --unread: #d88080; }
+  [data-accent="blue"] { --terra: #8a9bb5; --terra-dark: #6e7f99; --terra-rgb: 138, 155, 181; --unread: #8aa5d0; }
+  [data-accent="sage"] {
+    --terra: #8d9c7f; --terra-dark: #738a63; --terra-rgb: 141, 156, 127;
+    --sage: #8d9c7f; --sage-dark: #738a63; --sage-rgb: 141, 156, 127;
+    --unread: #9caa8f;
+  }
+  [data-accent="terracotta"] { --terra: #d98b6a; --terra-dark: #b86b4e; --terra-rgb: 217, 139, 106; --unread: #ef4444; }
+
   * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-  
-  body { margin: 0; padding: env(safe-area-inset-top) 0 0 0; background: var(--bg); color: var(--ink); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; width: 100%; }
+  body { margin: 0; padding: env(safe-area-inset-top) 0 0 0; background: var(--bg); color: var(--ink); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; width: 100%; transition: background 0.3s, color 0.3s; }
   .wrap { max-width: 500px; margin: 0 auto; padding: 0 16px 90px 16px; }
-  
-  .app-header { position: sticky; top: 0; z-index: 10; background: rgba(28, 27, 25, 0.95); backdrop-filter: blur(8px); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+
+  .app-header { position: sticky; top: 0; z-index: 10; background: rgba(var(--bg-rgb), 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
   .brand { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--ink); }
   .icon-btn { background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 6px; border-radius: 10px; color: var(--ink-soft); transition: color 0.2s; }
   .icon-btn:hover { color: var(--ink); }
-  
-  .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 14px; box-shadow: var(--shadow); border: 1px solid var(--line); }
+
+  .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 14px; box-shadow: var(--shadow); border: 1px solid var(--line); transition: background 0.3s, border-color 0.3s; }
   .card h3 { margin: 0 0 12px; font-size: 15px; color: var(--ink-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-  
+
   .hello { font-size: 26px; font-weight: 700; margin: 20px 0 4px; display: flex; align-items: center; gap: 6px; color: var(--ink); }
   .version-tag { font-size: 14px; color: var(--terra); font-weight: 700; }
-  
   .hello-sub { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; }
-  .pill { display: inline-block; background: #332b27; color: var(--terra); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 18px; }
-  
-  .smart-tip { background: #2e2521; border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; position: relative; display: none; box-shadow: var(--shadow); }
+  .pill { display: inline-block; background: var(--bg-tint); color: var(--terra); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 18px; }
+
+  .smart-tip { background: var(--bg-tint); border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; position: relative; display: none; box-shadow: var(--shadow); }
   .smart-tip.show { display: block; animation: fadeSlideUp 0.4s ease; }
   .smart-tip .close-tip { position: absolute; top: 8px; right: 12px; background: none; border: none; color: var(--ink-soft); font-size: 16px; cursor: pointer; padding: 4px; width: auto; margin: 0; }
-  
-  /* Centered Calorie Ring */
-  .ring-card.main-ring { width: 100%; max-width: 320px; margin: 0 auto 20px; background: var(--card); border-radius: 24px; padding: 24px; text-align: center; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; border: 1px solid var(--line); }
+
+  .ring-card.main-ring { width: 100%; max-width: 320px; margin: 0 auto 20px; background: var(--card); border-radius: 24px; padding: 24px; text-align: center; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s, background 0.3s; border: 1px solid var(--line); }
   .ring-card.main-ring:active { transform: scale(0.97); }
   .ring-svg { width: 150px; height: 150px; margin: 0 auto 12px; display: block; }
-  .ring-track { fill: none; stroke: #332e2a; stroke-width: 9; }
-  .ring-fill { fill: none; stroke-width: 9; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.5s ease; }
+  .ring-track { fill: none; stroke: var(--bg-deep); stroke-width: 9; }
+  .ring-fill { fill: none; stroke-width: 9; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.5s ease, stroke 0.3s; }
   .ring-fill.cal { stroke: var(--terra); }
   .ring-text { font-size: 28px; font-weight: 700; fill: var(--ink); }
   .ring-label { font-size: 15px; color: var(--ink-soft); margin-top: 4px; }
   .ring-label strong { color: var(--ink); font-size: 18px; display: block; }
-  .ring-sub { font-size: 13px; color: var(--ink-soft); margin-top: 8px; background: #2e2b28; padding: 6px 12px; border-radius: 12px; display: inline-block; }
+  .ring-sub { font-size: 13px; color: var(--ink-soft); margin-top: 8px; background: var(--bg-soft); padding: 6px 12px; border-radius: 12px; display: inline-block; }
   .ring-sub strong { color: var(--ink); }
 
   label { display: block; font-weight: 600; margin: 14px 0 6px; font-size: 13px; color: var(--ink-soft); }
-  input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; font-size: 16px; background: #1a1817; font-family: inherit; color: var(--ink); transition: border-color 0.2s; }
-  input:focus, select:focus, textarea:focus { border-color: var(--sage); outline: none; background: #141312; }
-  
-  /* PREMIUM BUTTON STYLES */
-  button { 
-    width: 100%; 
-    padding: 16px; 
-    background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%);
-    color: white; 
-    border: none; 
-    border-radius: 16px; 
-    font-size: 16px; 
-    font-weight: 600; 
-    margin-top: 12px; 
-    cursor: pointer; 
-    letter-spacing: 0.3px;
-    box-shadow: 0 4px 12px rgba(139, 168, 136, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-    transition: all 0.15s ease;
-    font-family: inherit;
-  }
-  button:active { 
-    transform: translateY(2px) scale(0.98); 
-    box-shadow: 0 1px 4px rgba(139, 168, 136, 0.1), inset 0 2px 4px rgba(0,0,0,0.3);
-  }
-  button:disabled { background: #383532; color: #7a7570; box-shadow: none; cursor: not-allowed; transform: none; }
-  
-  .btn-terra { 
-    background: linear-gradient(180deg, var(--terra) 0%, var(--terra-dark) 100%);
-    box-shadow: 0 4px 12px rgba(217, 139, 106, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-  }
-  .btn-terra:active { box-shadow: 0 1px 4px rgba(217, 139, 106, 0.1), inset 0 2px 4px rgba(0,0,0,0.3); }
-  
-  .btn-soft { 
-    background: #332e2a; 
-    color: var(--ink); 
-    border: 1.5px solid var(--line);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-  .btn-soft:active { background: #252321; box-shadow: none; }
-  
-  .btn-danger { 
-    background: #3b1f20; 
-    color: #f87171; 
-    border: 1.5px solid #5a2a2b;
-    box-shadow: none;
-  }
-  .btn-danger:active { background: #4a2627; }
-  
+  input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; font-size: 16px; background: var(--bg-deep); font-family: inherit; color: var(--ink); transition: border-color 0.2s, background 0.2s; }
+  input:focus, select:focus, textarea:focus { border-color: var(--sage); outline: none; }
+
+  button { width: 100%; padding: 16px; background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; border: none; border-radius: 16px; font-size: 16px; font-weight: 600; margin-top: 12px; cursor: pointer; letter-spacing: 0.3px; box-shadow: 0 4px 12px rgba(var(--sage-rgb), 0.2), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.15s ease; font-family: inherit; }
+  button:active { transform: translateY(2px) scale(0.98); box-shadow: 0 1px 4px rgba(var(--sage-rgb), 0.1), inset 0 2px 4px rgba(0,0,0,0.3); }
+  button:disabled { background: var(--bg-deep); color: var(--ink-muted); box-shadow: none; cursor: not-allowed; transform: none; }
+
+  .btn-terra { background: linear-gradient(180deg, var(--terra) 0%, var(--terra-dark) 100%); box-shadow: 0 4px 12px rgba(var(--terra-rgb), 0.2), inset 0 1px 0 rgba(255,255,255,0.1); }
+  .btn-terra:active { box-shadow: 0 1px 4px rgba(var(--terra-rgb), 0.1), inset 0 2px 4px rgba(0,0,0,0.3); }
+  .btn-soft { background: var(--bg-soft); color: var(--ink); border: 1.5px solid var(--line); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .btn-soft:active { background: var(--card); box-shadow: none; }
+  .btn-danger { background: var(--bg-danger); color: #f87171; border: 1.5px solid var(--bg-danger-border); box-shadow: none; }
+  .btn-danger:active { opacity: 0.8; }
+
   .google-btn { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
   .google-btn svg { flex-shrink: 0; }
-  .google-btn:hover { background: #1a1817; }
+  .google-btn:hover { background: var(--bg-deep); }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-  .chip { background: #332e2a; border: 1.5px solid transparent; padding: 10px 14px; border-radius: 14px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; color: var(--ink); transition: all 0.2s; }
+  .chip { background: var(--bg-soft); border: 1.5px solid transparent; padding: 10px 14px; border-radius: 14px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; color: var(--ink); transition: all 0.2s; }
   .chip input { display: none; }
   .chip.on { background: var(--sage); color: white; }
 
   .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip-btn { 
-    width: auto; 
-    margin: 0; 
-    background: var(--card); 
-    color: var(--ink-soft); 
-    border: 1.5px solid var(--line); 
-    padding: 10px 14px; 
-    border-radius: 12px; 
-    font-size: 14px; 
-    font-weight: 500; 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    letter-spacing: 0;
-  }
-  .chip-btn:hover { background: #332e2a; color: var(--ink); }
+  .chip-btn { width: auto; margin: 0; background: var(--card); color: var(--ink-soft); border: 1.5px solid var(--line); padding: 10px 14px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 2px 6px rgba(0,0,0,0.2); letter-spacing: 0; }
+  .chip-btn:hover { background: var(--bg-soft); color: var(--ink); }
   .chip-btn:active { transform: translateY(1px); box-shadow: none; }
 
-  /* Wizard Specific */
-  .wizard-note { background: #2e2521; border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14.5px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; }
-  .helper-text { font-size: 13px; color: var(--ink-soft); background: #1a1817; padding: 10px 14px; border-radius: 10px; margin-top: 8px; border: 1px solid var(--line); display: none; line-height: 1.4; }
+  .wizard-note { background: var(--bg-tint); border-left: 4px solid var(--terra); padding: 14px 16px; border-radius: 12px; font-size: 14.5px; color: var(--ink); line-height: 1.5; margin-bottom: 20px; }
+  .helper-text { font-size: 13px; color: var(--ink-soft); background: var(--bg-deep); padding: 10px 14px; border-radius: 10px; margin-top: 8px; border: 1px solid var(--line); display: none; line-height: 1.4; }
   .helper-text.show { display: block; }
 
   .progress-dots { display: flex; justify-content: center; gap: 8px; margin: 10px 0 22px; }
-  .progress-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: #383532; transition: background 0.3s; }
+  .progress-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-deep); transition: background 0.3s; }
   .progress-dots .dot.active { background: var(--sage); }
-  
+
   .wizard-footer { display: flex; gap: 10px; margin-top: 20px; width: 100%; align-items: stretch; }
   .wizard-footer button { width: auto; margin-top: 0; flex: 1; padding: 15px 5px; min-width: 0; font-size: 15px; }
   .wizard-footer .back { flex: 0.6; background: var(--card); color: var(--ink-soft); box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 1.5px solid var(--line); }
 
-  /* Slider Specific */
-  .slider-container { background: #1a1817; border: 1.5px solid var(--line); border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; }
+  .slider-container { background: var(--bg-deep); border: 1.5px solid var(--line); border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; }
   .slider-val { font-size: 36px; font-weight: 700; color: var(--terra); line-height: 1; margin-bottom: 4px; }
   .slider-label { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 16px; }
   input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
   input[type=range]:focus { outline: none; }
-  input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #383532; border-radius: 4px; }
+  input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: var(--bg-soft); border-radius: 4px; }
   input[type=range]::-webkit-slider-thumb { height: 24px; width: 24px; border-radius: 50%; background: var(--bg); cursor: pointer; -webkit-appearance: none; margin-top: -8px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); border: 2px solid var(--sage); transition: transform 0.1s; }
   input[type=range]::-webkit-slider-thumb:active { transform: scale(1.1); }
-  .deficit-box { background: #1f2b1f; border-radius: 12px; padding: 14px; font-size: 14px; color: var(--sage); line-height: 1.5; margin-top: 16px; text-align: left; }
-  
-  .teaser-card { background: #2e2521; border: 1px dashed var(--terra); box-shadow: none; }
+  .deficit-box { background: var(--bg-success); border-radius: 12px; padding: 14px; font-size: 14px; color: var(--sage); line-height: 1.5; margin-top: 16px; text-align: left; }
+
+  .teaser-card { background: var(--bg-tint); border: 1px dashed var(--terra); box-shadow: none; }
   .teaser-card h3 { color: var(--terra); display: flex; align-items: center; gap: 6px; }
-  
-  .ai-box { background: linear-gradient(135deg, #2e2521 0%, #201a17 100%); border-left: 4px solid var(--terra); padding: 16px; border-radius: 14px; font-size: 15px; line-height: 1.55; min-height: 60px; color: var(--ink); }
+
+  .ai-box { background: linear-gradient(135deg, var(--bg-tint) 0%, var(--bg-tint-end) 100%); border-left: 4px solid var(--terra); padding: 16px; border-radius: 14px; font-size: 15px; line-height: 1.55; min-height: 60px; color: var(--ink); }
   .ai-box.thinking { color: var(--ink-soft); font-style: italic; }
-  
+
   .meal-list { list-style: none; padding: 0; margin: 0; }
-  .meal-list li { background: #1a1817; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; color: var(--ink); }
+  .meal-list li { background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; color: var(--ink); }
   .meal-meta { color: var(--ink-soft); font-size: 12px; margin-top: 2px; }
-  .meal-list .del { background: #3b1f20; color: #f87171; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; padding: 0; margin: 0; cursor: pointer; box-shadow: none; }
+  .meal-list .del { background: var(--bg-danger); color: #f87171; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; padding: 0; margin: 0; cursor: pointer; box-shadow: none; }
   .meal-list .del:active { transform: scale(0.95); }
   .empty { color: var(--ink-soft); font-size: 14px; font-style: italic; text-align: center; padding: 20px; }
 
@@ -184,40 +205,38 @@
   .week-row:last-child { border-bottom: none; padding-bottom: 0; }
   .week-top { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 7px; color: var(--ink); }
   .week-row.today .week-top span:first-child { color: var(--sage); }
-  .week-bar-wrap { height: 8px; background: #383532; border-radius: 4px; overflow: hidden; }
-  .week-bar { height: 100%; background: var(--terra); border-radius: 4px; transition: width 0.4s ease; }
+  .week-bar-wrap { height: 8px; background: var(--bg-deep); border-radius: 4px; overflow: hidden; }
+  .week-bar { height: 100%; background: var(--terra); border-radius: 4px; transition: width 0.4s ease, background 0.3s; }
   .week-sub { font-size: 12px; color: var(--ink-soft); margin-top: 6px; }
 
   .snap-date-header { font-size: 12px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.6px; margin: 18px 0 8px; }
   .snap-date-header:first-child { margin-top: 4px; }
   .snap-card { display: flex; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 10px; margin-bottom: 8px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.05s; }
   .snap-card:active { transform: scale(0.99); }
-  .snap-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; flex-shrink: 0; background: #383532; }
+  .snap-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; flex-shrink: 0; background: var(--bg-deep); }
   .snap-info { flex: 1; min-width: 0; }
   .snap-desc { font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
-  .snap-card .del { background: #3b1f20; color: #f87171; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; padding: 0; margin: 0; cursor: pointer; flex-shrink: 0; box-shadow: none; }
+  .snap-card .del { background: var(--bg-danger); color: #f87171; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; padding: 0; margin: 0; cursor: pointer; flex-shrink: 0; box-shadow: none; }
 
-  /* Progress Page Styles */
-  .metric-toggle { display: flex; background: #383532; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+  .metric-toggle { display: flex; background: var(--bg-deep); border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
   .metric-toggle button { flex: 1; border-radius: 0; background: transparent; color: var(--ink-soft); margin: 0; padding: 12px; font-size: 14px; box-shadow: none; }
   .metric-toggle button.active { background: var(--sage); color: white; box-shadow: none; }
   .navy-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .navy-inputs input { padding: 10px; font-size: 14px; text-align: center; }
   .navy-inputs label { text-align: center; margin: 4px 0 0; font-size: 11px; }
 
-  .result-box { background: #1f2b1f; border-radius: 12px; padding: 16px; margin-top: 16px; border-left: 4px solid var(--sage); display: none; }
+  .result-box { background: var(--bg-success); border-radius: 12px; padding: 16px; margin-top: 16px; border-left: 4px solid var(--sage); display: none; }
   .result-box.show { display: block; }
   .result-title { font-size: 24px; font-weight: 700; color: var(--sage); margin-bottom: 8px; }
   .result-desc { font-size: 13px; color: var(--ink); line-height: 1.5; }
-  .result-range { font-size: 12px; color: var(--ink-soft); margin-top: 8px; display: block; border-top: 1px solid #383532; padding-top: 8px; }
+  .result-range { font-size: 12px; color: var(--ink-soft); margin-top: 8px; display: block; border-top: 1px solid var(--line); padding-top: 8px; }
 
-  /* Chart */
   .chart-container { background: var(--card); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); margin-top: 16px; border: 1px solid var(--line); }
   .chart-toggle { display: flex; gap: 10px; margin-bottom: 16px; }
-  .chart-toggle button { background: #383532; color: var(--ink-soft); margin: 0; padding: 8px 12px; width: auto; font-size: 13px; box-shadow: none; }
+  .chart-toggle button { background: var(--bg-deep); color: var(--ink-soft); margin: 0; padding: 8px 12px; width: auto; font-size: 13px; box-shadow: none; }
   .chart-toggle button.active { background: var(--sage); color: white; }
   .svg-chart { width: 100%; height: 150px; overflow: visible; }
-  .chart-line { fill: none; stroke: var(--terra); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .chart-line { fill: none; stroke: var(--terra); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
   .chart-dot { fill: var(--terra); stroke: var(--card); stroke-width: 2; cursor: pointer; }
   .chart-axis { stroke: var(--line); stroke-width: 1; }
   .chart-labels { font-size: 10px; fill: var(--ink-soft); }
@@ -227,9 +246,8 @@
   .timeline-item:last-child { border-bottom: none; }
   .timeline-date { font-weight: 600; color: var(--ink); width: 90px; }
   .timeline-val { color: var(--sage); font-weight: 700; flex: 1; text-align: right; padding-right: 12px; }
-  .timeline-del { background: #3b1f20; color: #f87171; border: none; width: 28px; height: 28px; border-radius: 8px; font-size: 12px; padding: 0; margin: 0; cursor: pointer; box-shadow: none; }
+  .timeline-del { background: var(--bg-danger); color: #f87171; border: none; width: 28px; height: 28px; border-radius: 8px; font-size: 12px; padding: 0; margin: 0; cursor: pointer; box-shadow: none; }
 
-  /* Coach Mark */
   .coach-mark { position: fixed; bottom: 160px; right: 20px; z-index: 96; background: var(--card); padding: 14px 16px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); font-size: 14px; color: var(--ink); line-height: 1.4; width: 220px; border: 1.5px solid var(--terra); display: none; animation: fadeSlideUp 0.5s ease forwards; }
   .coach-mark.show { display: block; }
   .coach-mark::after { content: ''; position: absolute; bottom: -8px; right: 30px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid var(--terra); }
@@ -237,38 +255,65 @@
   .loading { text-align: center; padding: 60px 20px; color: var(--ink-soft); }
   .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--line); border-top-color: var(--sage); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  
+
   .sheet-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: none; backdrop-filter: blur(2px); }
   .sheet-overlay.open { display: block; }
   .sheet { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-radius: 24px 24px 0 0; padding: 24px 20px max(24px, env(safe-area-inset-bottom)); z-index: 101; max-width: 500px; margin: 0 auto; transform: translateY(100%); transition: transform 0.3s ease; max-height: 85vh; overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.3); }
   .sheet.open { transform: translateY(0); }
   .sheet .handle { width: 40px; height: 4px; background: var(--line); border-radius: 2px; margin: 0 auto 16px; }
-  
+
   .status { text-align: center; font-size: 13px; margin-top: 8px; min-height: 18px; }
   .status.success { color: var(--sage); } .status.error { color: #f87171; }
-  .recipe-card { background: #1a1817; border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+  .recipe-card { background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
   .recipe-title { font-weight: 700; margin-bottom: 6px; font-size: 15px; color: var(--ink); }
   .recipe-body { font-size: 14px; color: var(--ink-soft); line-height: 1.5; white-space: pre-wrap; }
   .hidden { display: none !important; }
 
-  /* Frosted Glass Chat Overlay */
-  .chat-overlay { 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(28, 27, 25, 0.85); 
-    backdrop-filter: blur(20px); 
+  /* ═══ SETTINGS: THEME + ACCENT PICKERS ═══ */
+  .settings-section { margin-top: 16px; }
+  .settings-label { font-size: 12px; font-weight: 700; color: var(--ink-soft); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .swatch-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--swatch);
+    border: none; font-size: 20px; padding: 0; margin: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, outline 0.15s;
+    outline: 0 solid transparent; outline-offset: 2px;
+    cursor: pointer;
+  }
+  .swatch:hover { transform: scale(1.08); }
+  .swatch.active { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .theme-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .theme-btn {
+    padding: 10px 14px; border-radius: 12px;
+    background: var(--bg-soft); border: 2px solid transparent;
+    color: var(--ink-soft); font-size: 13px; font-weight: 600;
+    margin: 0; width: auto; cursor: pointer; box-shadow: none;
+    transition: all 0.2s;
+  }
+  .theme-btn:hover { background: var(--bg-tint); color: var(--ink); }
+  .theme-btn.active { border-color: var(--terra); background: var(--bg-tint); color: var(--ink); }
+  .settings-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg-soft); padding: 15px; border-radius: 14px; }
+  .settings-row span { font-weight: 600; font-size: 16px; color: var(--ink); }
+  .settings-row input[type=checkbox] { width: 24px; height: 24px; accent-color: var(--sage); cursor: pointer; }
+
+  /* ═══ CHAT OVERLAY (frosted glass, 0.7s) ═══ */
+  .chat-overlay {
+    position: fixed; inset: 0;
+    background: rgba(var(--bg-rgb), 0.75);
+    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    z-index: 200; 
-    display: flex; 
-    flex-direction: column; 
-    opacity: 0; 
-    pointer-events: none; 
-    transform: translateY(20px) scale(0.95); 
-    transition: opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    z-index: 200; display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transform: translateY(20px) scale(0.95);
+    transition: opacity 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   .chat-overlay.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
 
-  .chat-header { background: transparent; padding: 14px 16px; padding-top: max(14px, env(safe-area-inset-top)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .chat-header { background: rgba(var(--bg-rgb), 0.9); padding: 14px 16px; padding-top: max(14px, env(safe-area-inset-top)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
   .chat-close { background: transparent; color: var(--ink-soft); font-size: 24px; border: none; cursor: pointer; padding: 4px; width: auto; margin: 0; box-shadow: none; }
 
   .chat-messages { flex: 1; overflow-y: auto; padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; max-width: 500px; margin: 0 auto; width: 100%; }
@@ -278,29 +323,25 @@
   .msg-wrapper { display: flex; flex-direction: column; width: 100%; margin-bottom: 8px; }
   .msg-wrapper.user { align-items: flex-end; }
   .msg-wrapper.ai { align-items: flex-start; }
-  .msg-time { font-size: 11px; color: #7a7570; margin-bottom: 4px; margin-left: 4px; margin-right: 4px; }
+  .msg-time { font-size: 11px; color: var(--ink-muted); margin-bottom: 4px; margin-left: 4px; margin-right: 4px; }
   .chat-msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.45; white-space: pre-wrap; position: relative; }
   .chat-msg.ai { background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 4px; color: var(--ink); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-  .chat-msg.user { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; border-bottom-right-radius: 4px; box-shadow: 0 2px 10px rgba(139, 168, 136, 0.2); }
-  
-  /* TTS Button */
-  .tts-btn { display: inline-block; margin-top: 8px; background: #332e2a; border: none; padding: 4px 8px; border-radius: 12px; font-size: 13px; cursor: pointer; color: var(--ink-soft); width: auto; box-shadow: none; }
+  .chat-msg.user { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; border-bottom-right-radius: 4px; box-shadow: 0 2px 10px rgba(var(--sage-rgb), 0.2); }
+
+  .tts-btn { display: inline-block; margin-top: 8px; background: var(--bg-soft); border: none; padding: 4px 8px; border-radius: 12px; font-size: 13px; cursor: pointer; color: var(--ink-soft); width: auto; box-shadow: none; }
   .tts-btn.speaking { background: var(--sage); color: white; }
 
-  /* Chat Action Card */
-  .chat-action-card { background: #2e2521; border: 1px solid var(--terra); border-radius: 16px; padding: 14px; margin: 8px 0 16px 0; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 85%; }
+  .chat-action-card { background: var(--bg-tint); border: 1px solid var(--terra); border-radius: 16px; padding: 14px; margin: 8px 0 16px 0; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 85%; }
   .chat-action-info { font-size: 14px; color: var(--ink); line-height: 1.4; }
   .chat-action-info strong { font-size: 15px; color: var(--terra); display: block; margin-bottom: 4px; }
   .chat-action-card button { margin-top: 0; padding: 10px; font-size: 14px; width: 100%; background: var(--terra); }
 
-  /* Floating Quick Chips */
   .chat-quick-chips { display: flex; gap: 8px; padding: 0 16px 12px; overflow-x: auto; white-space: nowrap; width: 100%; max-width: 500px; margin: 0 auto; }
   .chat-quick-chips::-webkit-scrollbar { display: none; }
   .chat-quick-chips .chip-btn { background: var(--card); border: 1px solid var(--line); font-size: 13px; padding: 8px 14px; color: var(--ink); }
 
   .typing-wrapper { background: transparent; padding: 0 16px 8px 16px; max-width: 500px; margin: 0 auto; width: 100%; display: none; }
   .typing-wrapper.show { display: block; }
-  
   .typing-indicator { display: flex; gap: 4px; padding: 14px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; border-bottom-left-radius: 4px; width: fit-content; align-items: center; height: 44px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
   .typing-dots { display: flex; gap: 5px; }
   .typing-dots span { display: block; width: 6px; height: 6px; background: var(--ink-soft); border-radius: 50%; animation: bounce 1.2s infinite ease-in-out both; }
@@ -308,36 +349,33 @@
   .typing-dots span:nth-child(2) { animation-delay: -0.12s; }
   @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-  .chat-input-area { background: transparent; padding: 8px 12px max(8px, env(safe-area-inset-bottom)); border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 8px; max-width: 500px; margin: 0 auto; width: 100%; align-items: center; }
+  .chat-input-area { background: rgba(var(--bg-rgb), 0.9); padding: 8px 12px max(8px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); display: flex; gap: 8px; max-width: 500px; margin: 0 auto; width: 100%; align-items: center; }
   .chat-input-area input { flex: 1; border-radius: 20px; padding: 12px 16px; margin: 0; font-size: 15px; background: var(--card); border: 1.5px solid var(--line); color: var(--ink); }
   .chat-input-area button { width: 44px; height: 44px; margin: 0; padding: 0; border-radius: 50%; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: none; }
-  .chat-camera-btn { background: #332e2a; color: var(--ink); }
-  .chat-send-btn { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; box-shadow: 0 2px 8px rgba(139, 168, 136, 0.2); }
+  .chat-camera-btn { background: var(--bg-soft); color: var(--ink); }
+  .chat-send-btn { background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%); color: white; box-shadow: 0 2px 8px rgba(var(--sage-rgb), 0.2); }
 
-  /* Scan Modal */
   .scan-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 400; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(3px); }
   .scan-modal-overlay.show { opacity: 1; pointer-events: auto; }
   .scan-modal-card { background: var(--card); border-radius: 24px; padding: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
   .scan-modal-overlay.show .scan-modal-card { transform: translateY(0); }
-  .scan-img { width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 16px; background: #383532; }
+  .scan-img { width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 16px; background: var(--bg-deep); }
   .scan-title { font-size: 18px; font-weight: 700; margin: 0 0 16px; color: var(--ink); }
   .macro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .macro-item { background: #1a1817; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid var(--line); }
+  .macro-item { background: var(--bg-deep); border-radius: 12px; padding: 10px; text-align: center; border: 1px solid var(--line); }
   .macro-val { font-size: 18px; font-weight: 700; color: var(--sage); }
   .macro-label { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; margin-top: 2px; }
-  .scan-advice { font-size: 14px; color: var(--ink-soft); font-style: italic; background: #2e2521; padding: 12px; border-radius: 12px; border-left: 3px solid var(--terra); margin-bottom: 16px; }
-  
-  /* Allergy Warning */
-  .allergy-warning { background: #3b1f20; border-left: 4px solid #f87171; padding: 12px; border-radius: 10px; font-size: 13px; color: #f87171; line-height: 1.5; margin-bottom: 16px; display: none; }
+  .scan-advice { font-size: 14px; color: var(--ink-soft); font-style: italic; background: var(--bg-tint); padding: 12px; border-radius: 12px; border-left: 3px solid var(--terra); margin-bottom: 16px; }
+
+  .allergy-warning { background: var(--bg-danger); border-left: 4px solid #f87171; padding: 12px; border-radius: 10px; font-size: 13px; color: #f87171; line-height: 1.5; margin-bottom: 16px; display: none; }
   .allergy-warning strong { color: #ff9e9e; }
   .allergy-warning.show { display: block; animation: fadeSlideUp 0.3s; }
 
-  /* Daily Breakdown Styles */
   .bd-header { text-align: center; margin-bottom: 20px; }
   .bd-calories { font-size: 32px; font-weight: 700; color: var(--ink); line-height: 1; }
   .bd-calories span { font-size: 16px; color: var(--ink-soft); font-weight: 500; }
   .bd-macros-row { display: flex; justify-content: center; gap: 16px; margin-top: 12px; }
-  .bd-macro { text-align: center; background: #1a1817; padding: 8px 16px; border-radius: 12px; border: 1px solid var(--line); flex: 1; }
+  .bd-macro { text-align: center; background: var(--bg-deep); padding: 8px 16px; border-radius: 12px; border: 1px solid var(--line); flex: 1; }
   .bd-macro-val { font-size: 16px; font-weight: 700; color: var(--sage); }
   .bd-macro-label { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; }
   .bd-meal-group { margin-bottom: 16px; }
@@ -350,33 +388,23 @@
   .nav-item.active { color: var(--sage); }
   .nav-icon { font-size: 20px; margin-bottom: 4px; }
 
-  .floating-chat-btn { 
-    position: fixed; 
-    bottom: 90px; 
-    right: 20px; 
-    z-index: 95; 
-    width: 60px; 
-    height: 60px; 
-    border-radius: 50%; 
-    background: linear-gradient(180deg, var(--terra) 0%, var(--terra-dark) 100%); 
-    color: white; 
-    border: none; 
-    box-shadow: 0 6px 20px rgba(217, 139, 106, 0.4), inset 0 2px 0 rgba(255,255,255,0.1); 
-    display: none; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 28px; 
-    cursor: pointer; 
-    transition: transform 0.2s, box-shadow 0.2s; 
-    padding: 0; 
-    margin: 0; 
+  .floating-chat-btn {
+    position: fixed; bottom: 90px; right: 20px; z-index: 95;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(180deg, var(--terra) 0%, var(--terra-dark) 100%);
+    color: white; border: none;
+    box-shadow: 0 6px 20px rgba(var(--terra-rgb), 0.4), inset 0 2px 0 rgba(255,255,255,0.1);
+    display: none; align-items: center; justify-content: center;
+    font-size: 28px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    padding: 0; margin: 0;
   }
   .floating-chat-btn.show { display: flex; }
-  .floating-chat-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(217, 139, 106, 0.5), inset 0 2px 0 rgba(255,255,255,0.1); }
-  .floating-chat-btn:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(217, 139, 106, 0.3); }
-  .floating-chat-btn::after { content: ''; position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; background: #ef4444; border-radius: 50%; border: 2px solid var(--bg); }
-  
-  .photo-btn { background: #1a1817; color: var(--ink); border: 2px dashed var(--line); border-radius: 16px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; display: block; margin: 0; }
+  .floating-chat-btn:hover { transform: scale(1.05); }
+  .floating-chat-btn:active { transform: scale(0.95); }
+  .floating-chat-btn::after { content: ''; position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; background: var(--unread); border-radius: 50%; border: 2px solid var(--bg); }
+
+  .photo-btn { background: var(--bg-deep); color: var(--ink); border: 2px dashed var(--line); border-radius: 16px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; display: block; margin: 0; }
   .photo-btn:hover { background: var(--card); border-color: var(--sage); }
   .photo-btn:active { transform: scale(0.98); }
 
@@ -389,8 +417,7 @@
   .welcome-progress { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
   .welcome-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background 0.3s; }
   .welcome-dot.active { background: var(--sage); }
-  
-  /* Premium Update Modal */
+
   #updateModal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
   #updateModal.show { display: flex; }
   .update-card { background: var(--card); border-radius: 24px; padding: 30px 24px; max-width: 400px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.4); text-align: center; animation: fadeSlideUp 0.5s ease forwards; }
@@ -400,7 +427,7 @@
   .update-list { text-align: left; padding-left: 20px; margin-bottom: 24px; font-size: 14px; line-height: 1.6; color: var(--ink); }
   .update-list li { margin-bottom: 10px; }
   .update-list strong { color: var(--sage); }
-  
+
   @keyframes fadeSlideUp { to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
@@ -422,22 +449,18 @@
       <li>🧠 <strong>A Smarter Dietitian:</strong> The chat can now see your weight trends and full food history to give you even better advice.</li>
       <li>💡 <strong>Direct Line to the Developers:</strong> Found a bug or have an idea? Use the new "Suggest a Feature" button in Settings to tell us directly!</li>
       <li>📸 <strong>Unlimited AI Scans:</strong> Keep snapping photos to your heart's content.</li>
+      <li>🎨 <strong>Pick your color + theme:</strong> Open Settings to choose from 6 accent colors and 4 warm themes!</li>
     </ul>
     <button class="btn-terra" onclick="closeUpdateModal()" style="margin-top: 0;">✨ Explore My New Features</button>
   </div>
 </div>
 
-<!-- FLOATING CHAT BUTTON -->
-<button class="floating-chat-btn" id="floatingChatBtn" onclick="openChat()" aria-label="Chat with your dietitian">
-  💬
-</button>
+<button class="floating-chat-btn" id="floatingChatBtn" onclick="openChat()" aria-label="Chat with your dietitian">💬</button>
 
-<!-- COACH MARK -->
 <div class="coach-mark" id="chatCoachMark" onclick="dismissCoachMark()">
   Hi Fiona! 👋 I'm right here if you need any advice or have questions about your meals. Just tap here!
 </div>
 
-<!-- WELCOME ONBOARDING -->
 <div class="welcome-overlay" id="welcomeScreen">
   <div class="welcome-card" id="welcomeCard">
     <div class="welcome-icon" id="welcomeIcon">🌿</div>
@@ -455,46 +478,35 @@
   <div class="header-actions"><button class="icon-btn" onclick="openSettings()">⚙️</button></div>
 </div>
 
-<!-- FROSTED GLASS CHAT OVERLAY -->
 <div class="chat-overlay" id="chatOverlay">
   <div class="chat-header">
     <h3>🍃 Dietitian</h3>
     <button class="chat-close" onclick="closeChat()">×</button>
   </div>
-  
   <div class="chat-messages" id="chatMessages"></div>
-  
   <div class="typing-wrapper" id="typingWrapper">
     <div class="typing-indicator">
-      <div class="typing-dots">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
     </div>
   </div>
-
   <div class="chat-quick-chips" id="chatQuickChips">
     <button class="chip-btn" onclick="sendQuickChat('What should I have for dinner tonight?')">Dinner ideas</button>
     <button class="chip-btn" onclick="sendQuickChat('How am I doing today?')">Review my day</button>
     <button class="chip-btn" onclick="sendQuickChat('Is a handful of nuts a good snack?')">Snack check</button>
   </div>
-
   <div class="chat-input-area">
     <input type="file" id="chatFileCamera" accept="image/*" capture="environment" onchange="handleChatPhoto(event)" style="display:none;">
     <button class="chat-camera-btn" onclick="document.getElementById('chatFileCamera').click()" aria-label="Send photo">📷</button>
-    
     <input type="text" id="chatInput" placeholder="Ask a question…" onkeypress="if(event.key==='Enter') sendChat()">
     <button class="chat-send-btn" onclick="sendChat()" aria-label="Send">↑</button>
   </div>
 </div>
 
-<!-- SCAN MODAL (Save from home) -->
 <div class="scan-modal-overlay" id="scanModal">
   <div class="scan-modal-card">
     <img id="scanPreview" class="scan-img" src="" alt="Food scan">
     <h3 class="scan-title" id="scanDesc">Analyzing...</h3>
-    
     <div class="allergy-warning" id="scanAllergyWarning"></div>
-
     <div class="macro-grid">
       <div class="macro-item"><div class="macro-val" id="scanCal">0</div><div class="macro-label">Calories</div></div>
       <div class="macro-item"><div class="macro-val" id="scanPro">0g</div><div class="macro-label">Protein</div></div>
@@ -503,9 +515,7 @@
       <div class="macro-item"><div class="macro-val" id="scanFibre">0g</div><div class="macro-label">Fibre</div></div>
       <div class="macro-item"><div class="macro-val" id="scanSatFat">0g</div><div class="macro-label">Sat Fat</div></div>
     </div>
-
     <div class="scan-advice" id="scanAdvice">Loading advice...</div>
-
     <label>Which meal is this?</label>
     <select id="scanType">
       <option value="breakfast">🌅 Breakfast</option>
@@ -513,34 +523,29 @@
       <option value="dinner">🌙 Dinner</option>
       <option value="snack">🍎 Snack</option>
     </select>
-
     <button class="btn-terra" onclick="logScannedMeal()">✓ Log to Diary</button>
     <button class="btn-soft" onclick="saveScannedToCookbook()">📖 Save to Cookbook</button>
     <button class="btn-soft" onclick="discardScannedMeal()" style="background: transparent; color: var(--ink-soft); margin-top: 4px; box-shadow: none; border: none;">✕ Discard</button>
   </div>
 </div>
 
-<!-- DAILY BREAKDOWN MODAL -->
 <div class="sheet-overlay" id="breakdownOverlay" onclick="closeDailyBreakdown()"></div>
 <div class="sheet" id="breakdownSheet">
   <div class="handle"></div>
   <div class="bd-header">
     <div class="bd-calories" id="bdCalories">0 <span>/ 2000 cal</span></div>
-    
     <div class="bd-macros-row">
       <div class="bd-macro"><div class="bd-macro-val" id="bdProtein">0g</div><div class="bd-macro-label">Protein</div></div>
       <div class="bd-macro"><div class="bd-macro-val" id="bdCarbs">0g</div><div class="bd-macro-label">Carbs</div></div>
       <div class="bd-macro"><div class="bd-macro-val" id="bdFat">0g</div><div class="bd-macro-label">Fat</div></div>
     </div>
-    
     <div class="bd-macros-row" style="margin-top: 8px;">
       <div class="bd-macro"><div class="bd-macro-val" id="bdFibre">0g</div><div class="bd-macro-label">Fibre</div></div>
       <div class="bd-macro"><div class="bd-macro-val" id="bdSatFat">0g</div><div class="bd-macro-label">Sat Fat</div></div>
     </div>
   </div>
   <div id="bdMealsContainer"></div>
-  
-  <details class="manual-add" style="margin-top: 20px; background: #1a1817; padding: 16px; border-radius: 16px; border: 1px solid var(--line);">
+  <details class="manual-add" style="margin-top: 20px; background: var(--bg-deep); padding: 16px; border-radius: 16px; border: 1px solid var(--line);">
     <summary style="color: var(--ink);">Add a meal by hand</summary>
     <label style="margin-top:16px;">What did you eat?</label>
     <input type="text" id="mealDesc" placeholder="e.g. 100g chicken breast">
@@ -554,17 +559,14 @@
     <button onclick="addMeal()" id="addMealBtn">✨ Calculate & Log</button>
     <div class="status" id="mealStatus"></div>
   </details>
-
   <div class="ai-box" id="bdInsight" style="margin-top: 20px; font-size: 14px;">Analyzing your day...</div>
   <button class="btn-soft" onclick="closeDailyBreakdown()" style="margin-top: 16px;">Close</button>
 </div>
 
-<!-- SNAP VIEW MODAL -->
 <div class="scan-modal-overlay" id="snapViewModal" onclick="if(event.target===this) closeSnapView()">
   <div class="scan-modal-card">
     <img id="snapViewImg" class="scan-img" src="" alt="Food snap" style="height:220px;">
     <h3 class="scan-title" id="snapViewTitle">Meal</h3>
-    
     <div class="macro-grid">
       <div class="macro-item"><div class="macro-val" id="snapViewCal">0</div><div class="macro-label">Calories</div></div>
       <div class="macro-item"><div class="macro-val" id="snapViewPro">0g</div><div class="macro-label">Protein</div></div>
@@ -573,18 +575,15 @@
       <div class="macro-item"><div class="macro-val" id="snapViewFibre">0g</div><div class="macro-label">Fibre</div></div>
       <div class="macro-item"><div class="macro-val" id="snapViewSatFat">0g</div><div class="macro-label">Sat Fat</div></div>
     </div>
-
     <div class="scan-advice" id="snapViewMeta"></div>
     <button class="btn-soft" onclick="closeSnapView()">Close</button>
   </div>
 </div>
 
-<!-- LOADING -->
 <div class="wrap" id="loadingScreen">
   <div class="loading"><div class="spinner"></div><div>Getting things ready…</div></div>
 </div>
 
-<!-- LOGIN -->
 <div class="wrap" id="loginScreen" style="display:none;">
   <div class="hello">Welcome 🌿</div>
   <p class="hello-sub">Your kitchen companion — meals, recipes, and a dietitian who knows you.</p>
@@ -597,15 +596,11 @@
   </div>
 </div>
 
-<!-- WIZARD -->
 <div class="wrap" id="signupScreen" style="display:none;">
   <div class="progress-dots" id="progressDots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-  
   <div id="wiz1">
     <div class="hello">A little about you</div>
-    <div class="wizard-note">
-      Hi Fiona! 🌿 I already know it's you, and since you were born in 1969, that makes you 57 years old. No need to type those in—let's just fill in the rest below.
-    </div>
+    <div class="wizard-note">Hi Fiona! 🌿 I already know it's you, and since you were born in 1969, that makes you 57 years old. No need to type those in—let's just fill in the rest below.</div>
     <label>Height (cm)</label><input type="number" id="heightCm" placeholder="e.g. 165">
     <label>Current weight (kg)</label><input type="number" id="currentWeightKg" step="0.1" placeholder="e.g. 72">
     <label>Goal</label>
@@ -616,7 +611,6 @@
     <div id="goalWeightWrap" style="display:none;"><label>Goal weight (kg)</label><input type="number" id="goalWeightKg" step="0.1"></div>
     <div class="wizard-footer"><button onclick="wizNext(1)">Next →</button></div>
   </div>
-  
   <div id="wiz2" class="hidden">
     <div class="hello">Pace & daily life</div>
     <label>How quickly?</label><select id="pace"><option value="gentle">Gentle</option><option value="steady" selected>Steady</option><option value="faster">Faster</option><option value="na">NA</option></select>
@@ -627,7 +621,6 @@
     <label>Budget</label><select id="budget"><option value="tight">Tight</option><option value="moderate" selected>Moderate</option><option value="flexible">Flexible</option></select>
     <div class="wizard-footer"><button class="back" onclick="wizBack(2)">← Back</button><button onclick="wizNext(2)">Next →</button></div>
   </div>
-  
   <div id="wiz3" class="hidden">
     <div class="hello">Health & habits</div>
     <label>Medical conditions</label>
@@ -647,47 +640,33 @@
     <label>Why now?</label><textarea id="motivation" rows="2"></textarea>
     <div class="wizard-footer"><button class="back" onclick="wizBack(3)">← Back</button><button onclick="wizNext(3)">Next →</button></div>
   </div>
-
   <div id="wiz4" class="hidden">
     <div class="hello">Understanding calories</div>
-    <div class="wizard-note" id="wiz4Note">
-      I've looked at your height, weight, age, and daily activity. Based on this, your body naturally burns about <strong id="wizTdee">2000</strong> calories a day. To lose weight, we need to eat slightly less than that—this is called a <strong>deficit</strong>.
-    </div>
-    
+    <div class="wizard-note" id="wiz4Note">I've looked at your height, weight, age, and daily activity. Based on this, your body naturally burns about <strong id="wizTdee">2000</strong> calories a day. To lose weight, we need to eat slightly less than that—this is called a <strong>deficit</strong>.</div>
     <div class="slider-container">
       <div class="slider-label">Daily Calorie Target</div>
       <div class="slider-val" id="sliderDisplay">1800</div>
       <input type="range" id="calSlider" min="1200" max="2500" step="50" value="1800" oninput="updateSliderUI(this.value)">
       <div class="deficit-box" id="deficitBox">Adjust the slider to see your deficit.</div>
     </div>
-
     <div class="card teaser-card" style="margin-top: 14px;">
       <h3>📖 Want to learn more?</h3>
-      <p style="font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin: 0;">
-        Once you finish setting up, tap the <strong>Progress</strong> tab at the bottom of the screen. I've put together a complete guide explaining protein, fibre, and how to build a balanced plate just for you.
-      </p>
+      <p style="font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin: 0;">Once you finish setting up, tap the <strong>Progress</strong> tab at the bottom of the screen. I've put together a complete guide explaining protein, fibre, and how to build a balanced plate just for you.</p>
     </div>
-
     <div class="wizard-footer"><button class="back" onclick="wizBack(4)">← Back</button><button id="saveBtn" onclick="saveProfile()">Save ✓</button></div>
     <div class="status" id="formStatus"></div>
   </div>
 </div>
 
-<!-- DASHBOARD -->
 <div class="wrap" id="dashScreen" style="display:none;">
-  
-  <!-- HOME PAGE (Minimalist) -->
   <div id="page-home">
-    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V58)</span></div>
+    <div class="hello" id="greeting">Hi, Fiona 🌿 <span class="version-tag">(V59)</span></div>
     <p class="hello-sub" id="helloSub">Here's how today's going.</p>
-    
     <div class="smart-tip" id="smartTipBanner">
       <button class="close-tip" onclick="dismissTip()">✕</button>
       <div id="smartTipText">💡 <strong>Dietitian Tip:</strong> Did you know you can snap a photo of a supermarket label to instantly see the macros?</div>
     </div>
-
     <div class="pill" id="goalBadge">Goal</div>
-    
     <div class="ring-card main-ring" onclick="openDailyBreakdown()">
       <svg class="ring-svg" viewBox="0 0 100 100">
         <circle class="ring-track" cx="50" cy="50" r="42"></circle>
@@ -697,7 +676,6 @@
       <div class="ring-label"><strong id="calCount">0</strong>of <span id="calGoal">—</span> cal</div>
       <div class="ring-sub">Protein <strong id="proteinCount">0</strong> / <span id="proteinGoal">—</span>g</div>
     </div>
-
     <div class="card">
       <h3>Snap a meal or label</h3>
       <label for="fileCamera" class="photo-btn">
@@ -709,15 +687,11 @@
       <div class="status" id="photoStatus"></div>
     </div>
   </div>
-
-  <!-- SNAPS PAGE -->
   <div id="page-snaps" class="hidden">
     <div class="hello">Food snaps</div>
     <p class="hello-sub">Every photo you've logged, newest first.</p>
     <div id="snapsList"><div class="empty">No snaps yet — take a photo from the Home tab and tap Save.</div></div>
   </div>
-
-  <!-- COOKBOOK PAGE -->
   <div id="page-cookbook" class="hidden">
     <div class="hello">Cookbook</div>
     <p class="hello-sub">Ideas based on what you have.</p>
@@ -732,18 +706,14 @@
       <div id="recipeList"><div class="empty">Your saved recipes will appear here.</div></div>
     </div>
   </div>
-
-  <!-- PROGRESS PAGE -->
   <div id="page-progress" class="hidden">
     <div class="hello">Progress</div>
     <p class="hello-sub">Your weekly summary and weight trends.</p>
-    
     <div class="card">
       <h3>This Week</h3>
       <div class="week-summary" id="weekSummary">—</div>
       <div id="weekList" style="margin-top:16px;"></div>
     </div>
-
     <div class="card">
       <h3>⚖️ My Metrics</h3>
       <label>Log New Weight (kg)</label>
@@ -752,38 +722,31 @@
         <button onclick="saveMetric()" style="margin-top: 0; width: auto; padding: 0 24px;">Log</button>
       </div>
       <div class="status" id="metricStatus"></div>
-
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
         <label style="margin: 0;">Body Fat Calculator</label>
         <button class="chip-btn" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; margin: 0;" onclick="toggleMeasureGuide()">📏 How to measure</button>
       </div>
-      
-      <div id="measureGuide" style="display: none; background: #1a1817; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5;">
+      <div id="measureGuide" style="display: none; background: var(--bg-deep); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5;">
         <strong>Neck:</strong> Measure just below the voice box, keeping the tape level and relaxed.<br><br>
         <strong>Waist:</strong> Measure at your narrowest point, breathe out normally, and don't pull the tape tight.<br><br>
         <strong>Hip:</strong> Measure at the widest part, keeping your feet together.<br><br>
         <em>Tip: Use a flexible tape measure and keep it flat against your skin.</em>
       </div>
-
       <div class="metric-toggle" style="margin-top: 12px;">
         <button class="active" id="btnBmi" onclick="switchMetricMethod('bmi')">BMI Method</button>
         <button id="btnNavy" onclick="switchMetricMethod('navy')">US Navy Method</button>
       </div>
-
       <div id="navyInputs" class="navy-inputs hidden">
         <div><input type="number" id="neckCm" placeholder="e.g. 33"><label>Neck (cm)</label></div>
         <div><input type="number" id="waistCm" placeholder="e.g. 80"><label>Waist (cm)</label></div>
         <div><input type="number" id="hipCm" placeholder="e.g. 95"><label>Hip (cm)</label></div>
       </div>
-      
       <button class="btn-soft" onclick="calculateBodyFat()" style="margin-top: 12px;">Calculate Body Fat</button>
-
       <div class="result-box" id="bodyFatResult">
         <div class="result-title" id="bfPercentage">28.4%</div>
         <div class="result-desc" id="bfDescription">You are in the healthy range!</div>
         <div class="result-range" id="bfRange">...</div>
       </div>
-
       <div class="chart-container">
         <div class="chart-toggle">
           <button class="active" id="chartBtnWeight" onclick="switchChart('weight')">Weight</button>
@@ -794,10 +757,8 @@
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav" id="bottomNav" style="display:none;">
   <button class="nav-item active" id="nav-home" onclick="switchMainPage('home')"><span class="nav-icon">🏠</span> Home</button>
   <button class="nav-item" id="nav-snaps" onclick="switchMainPage('snaps')"><span class="nav-icon">📸</span> Snaps</button>
@@ -811,13 +772,37 @@
   <div class="handle"></div>
   <h2>Settings</h2>
   <button class="btn-soft" onclick="editProfile()">✏️ Edit my profile</button>
-  
-  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; background:#332e2a; padding:15px; border-radius:14px; border:none;">
-    <span style="font-weight:600; font-size:16px; color:var(--ink);">🍎 Smart Tips</span>
-    <input type="checkbox" id="toggleTips" checked onchange="toggleSmartTips()" style="width:24px; height:24px; accent-color:var(--sage); cursor:pointer;">
+
+  <div class="settings-section">
+    <div class="settings-label">🎨 Accent Color</div>
+    <div class="swatch-row">
+      <button class="swatch active" data-accent="rose" style="--swatch: #c19a9a" onclick="setAccent('rose')" title="Dusty Rose">🌹</button>
+      <button class="swatch" data-accent="plum" style="--swatch: #9a7d96" onclick="setAccent('plum')" title="Plum">🌸</button>
+      <button class="swatch" data-accent="burgundy" style="--swatch: #8a5050" onclick="setAccent('burgundy')" title="Burgundy">🍷</button>
+      <button class="swatch" data-accent="blue" style="--swatch: #8a9bb5" onclick="setAccent('blue')" title="Dusty Blue">🌊</button>
+      <button class="swatch" data-accent="sage" style="--swatch: #8d9c7f" onclick="setAccent('sage')" title="Sage">🌿</button>
+      <button class="swatch" data-accent="terracotta" style="--swatch: #d98b6a" onclick="setAccent('terracotta')" title="Terracotta">🟠</button>
+    </div>
   </div>
-  
-  <button class="btn-soft" onclick="clearChatHistory()" style="margin-top:12px;">🗑️ Clear Chat History</button>
+
+  <div class="settings-section">
+    <div class="settings-label">🌗 Theme</div>
+    <div class="theme-row">
+      <button class="theme-btn active" data-theme="espresso" onclick="setTheme('espresso')">🌑 Espresso</button>
+      <button class="theme-btn" data-theme="dusk" onclick="setTheme('dusk')">☕ Dusk</button>
+      <button class="theme-btn" data-theme="latte" onclick="setTheme('latte')">🍵 Latte</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">📖 Cream</button>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-row">
+      <span>🍎 Smart Tips</span>
+      <input type="checkbox" id="toggleTips" checked onchange="toggleSmartTips()">
+    </div>
+  </div>
+
+  <button class="btn-soft" onclick="clearChatHistory()" style="margin-top:16px;">🗑️ Clear Chat History</button>
   <button class="btn-soft" onclick="logout()">🚪 Sign out</button>
   <button class="btn-danger" onclick="startFresh()">🔄 Start fresh</button>
 </div>
@@ -841,24 +826,23 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const APP_VERSION = 'V58';
+  const APP_VERSION = 'V59';
   const BIRTH_YEAR = 1969;
   const FIONA_AGE = new Date().getFullYear() - BIRTH_YEAR;
 
   let currentProfile = null, currentUser = null, todaysMeals = [], savedRecipes = [];
   let unsubMeals = null, unsubRecipes = null, unsubChat = null, unsubSnaps = null, isChatting = false;
   let pendingScanData = null;
-  let allSnaps = []; 
+  let allSnaps = [];
   let showSmartTips = true;
   let calculatedTDEE = 2000;
-  let currentChartMode = 'weight'; 
-  let currentMetricMethod = 'bmi'; 
+  let currentChartMode = 'weight';
+  let currentMetricMethod = 'bmi';
   let welcomeStep = 0;
 
   const WELCOME_MSG = "Welcome, Fiona! 🌿 Think of this as our little check-in space. Feel free to share whatever's on your mind—your goals, your health, or any specific nutritional needs you have. Just so you know, I can already see the food snaps you save here in the app and the recipes in your cookbook, so I'm always up to speed on what you've been eating. Feel free to ask me anything!";
 
   let chatHistory = [{ role: "assistant", content: WELCOME_MSG }];
-
   const RING_CIRC = 2 * Math.PI * 42;
 
   const MEAL_TYPES = [
@@ -877,9 +861,7 @@
     if (h < 21) return 'dinner';
     return 'snack';
   }
-
   function todayKey() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
-
   let activeDayKey = todayKey();
 
   const welcomeData = [
@@ -889,24 +871,42 @@
     { icon: "💬", title: "Friendly Advice", text: "If you ever have a question—like 'What should I cook with the chicken in my fridge?' or 'Is this a good snack?'—just tap the chat bubble at the bottom. I'm always here to give you friendly, practical advice based on your specific goals. You're going to do wonderfully. Let's get started!" }
   ];
 
+  // ═══ THEME + ACCENT SWAPPING ═══
+  window.setAccent = function(a) {
+    document.documentElement.setAttribute('data-accent', a);
+    try { localStorage.setItem('fiona-accent', a); } catch(e){}
+    document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('active', s.dataset.accent === a));
+    if (currentUser) {
+      setDoc(doc(db, 'profiles', currentUser.uid), { accent: a }, { merge: true }).catch(() => {});
+    }
+  };
+
+  window.setTheme = function(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('fiona-theme', t); } catch(e){}
+    document.querySelectorAll('.theme-btn').forEach(s => s.classList.toggle('active', s.dataset.theme === t));
+    if (currentUser) {
+      setDoc(doc(db, 'profiles', currentUser.uid), { theme: t }, { merge: true }).catch(() => {});
+    }
+  };
+
+  function syncSettingsUI() {
+    const a = document.documentElement.getAttribute('data-accent') || 'rose';
+    const t = document.documentElement.getAttribute('data-theme') || 'espresso';
+    document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('active', s.dataset.accent === a));
+    document.querySelectorAll('.theme-btn').forEach(s => s.classList.toggle('active', s.dataset.theme === t));
+  }
+
   window.showScreen = function(id) {
-    ['loadingScreen','loginScreen','signupScreen','dashScreen', 'welcomeScreen'].forEach(s => {
+    ['loadingScreen','loginScreen','signupScreen','dashScreen','welcomeScreen'].forEach(s => {
       const el = document.getElementById(s);
-      if (el) {
-        el.style.display = 'none';
-        el.classList.remove('show');
-      }
+      if (el) { el.style.display = 'none'; el.classList.remove('show'); }
     });
     const target = document.getElementById(id);
     if (target) {
-      if (id === 'welcomeScreen') {
-        target.style.display = 'flex';
-        target.classList.add('show');
-      } else {
-        target.style.display = 'block';
-      }
+      if (id === 'welcomeScreen') { target.style.display = 'flex'; target.classList.add('show'); }
+      else { target.style.display = 'block'; }
     }
-    
     document.getElementById('bottomNav').style.display = (id === 'dashScreen') ? 'flex' : 'none';
     document.getElementById('floatingChatBtn').style.display = (id === 'dashScreen') ? 'flex' : 'none';
     window.scrollTo(0,0);
@@ -919,20 +919,14 @@
       showScreen('signupScreen');
       return;
     }
-    
     const card = document.getElementById('welcomeCard');
     card.style.animation = 'none';
     card.offsetHeight;
     card.style.animation = 'fadeSlideUp 0.5s ease forwards';
-    
     document.getElementById('welcomeIcon').textContent = welcomeData[welcomeStep].icon;
     document.getElementById('welcomeTitle').textContent = welcomeData[welcomeStep].title;
     document.getElementById('welcomeText').textContent = welcomeData[welcomeStep].text;
-    
-    document.querySelectorAll('.welcome-dot').forEach((dot, i) => {
-      dot.classList.toggle('active', i <= welcomeStep);
-    });
-
+    document.querySelectorAll('.welcome-dot').forEach((dot, i) => { dot.classList.toggle('active', i <= welcomeStep); });
     if (welcomeStep === welcomeData.length - 1) {
       document.getElementById('welcomeBtn').textContent = "Let's Get Started!";
     }
@@ -940,16 +934,11 @@
 
   window.switchMainPage = function(page) {
     ['home', 'snaps', 'cookbook', 'progress'].forEach(p => {
-      const el = document.getElementById('page-'+p);
-      if (el) el.classList.add('hidden');
-      const nav = document.getElementById('nav-'+p);
-      if (nav) nav.classList.remove('active');
+      const el = document.getElementById('page-'+p); if (el) el.classList.add('hidden');
+      const nav = document.getElementById('nav-'+p); if (nav) nav.classList.remove('active');
     });
-    const pageEl = document.getElementById('page-'+page);
-    if (pageEl) pageEl.classList.remove('hidden');
-    const navEl = document.getElementById('nav-'+page);
-    if (navEl) navEl.classList.add('active');
-    
+    const pageEl = document.getElementById('page-'+page); if (pageEl) pageEl.classList.remove('hidden');
+    const navEl = document.getElementById('nav-'+page); if (navEl) navEl.classList.add('active');
     if (page === 'progress') loadProgressPage();
   };
 
@@ -958,9 +947,7 @@
     if (el) { el.textContent = msg; el.className = 'status ' + (isError ? 'error' : 'success'); }
   };
 
-  function getTimeString() { 
-    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); 
-  }
+  function getTimeString() { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
 
   function downscaleImage(dataUrl, maxDim = 420, quality = 0.7) {
     return new Promise((resolve) => {
@@ -972,10 +959,8 @@
           else if (height > maxDim) { width = Math.round(width * maxDim / height); height = maxDim; }
           const canvas = document.createElement('canvas');
           canvas.width = width; canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          try { resolve(canvas.toDataURL('image/jpeg', quality)); }
-          catch (e) { resolve(dataUrl); }
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          try { resolve(canvas.toDataURL('image/jpeg', quality)); } catch (e) { resolve(dataUrl); }
         };
         img.onerror = () => resolve(dataUrl);
         img.src = dataUrl;
@@ -983,7 +968,6 @@
     });
   }
 
-  // ---------- Progress Page Logic ----------
   window.toggleMeasureGuide = function() {
     const el = document.getElementById('measureGuide');
     el.style.display = el.style.display === 'none' ? 'block' : 'none';
@@ -1006,59 +990,34 @@
   window.saveMetric = async function() {
     const wInput = document.getElementById('newWeightInput');
     const weight = parseFloat(wInput.value);
-    if (!weight || weight <= 0) {
-      setStatus('metricStatus', 'Please enter a valid weight.', true);
-      return;
-    }
-
+    if (!weight || weight <= 0) { setStatus('metricStatus', 'Please enter a valid weight.', true); return; }
     let bodyFat = 0;
     const height = currentProfile.heightCm;
     if (height) {
       const bmi = weight / ((height/100) * (height/100));
-      bodyFat = (1.20 * bmi) + (0.23 * FIONA_AGE) - 5.4;
-      bodyFat = Math.max(5, bodyFat);
+      bodyFat = Math.max(5, (1.20 * bmi) + (0.23 * FIONA_AGE) - 5.4);
     }
-
-    const entry = {
-      date: todayKey(),
-      timestamp: Date.now(),
-      weight: weight,
-      bodyFat: parseFloat(bodyFat.toFixed(1)),
-      method: 'bmi'
-    };
-
+    const entry = { date: todayKey(), timestamp: Date.now(), weight: weight, bodyFat: parseFloat(bodyFat.toFixed(1)), method: 'bmi' };
     let history = currentProfile.weightHistory || [];
     history = history.filter(h => h.date !== entry.date);
     history.push(entry);
     history.sort((a,b) => new Date(a.date) - new Date(b.date));
-
     try {
       const newProfile = { ...currentProfile, currentWeightKg: weight, weightHistory: history };
       newProfile.targets = computeTargets(newProfile);
-      
-      await setDoc(doc(db, 'profiles', currentUser.uid), { 
-        currentWeightKg: weight, 
-        weightHistory: history,
-        targets: newProfile.targets
-      }, { merge: true });
-
+      await setDoc(doc(db, 'profiles', currentUser.uid), { currentWeightKg: weight, weightHistory: history, targets: newProfile.targets }, { merge: true });
       currentProfile = newProfile;
       setStatus('metricStatus', '✅ Logged successfully!');
       wInput.value = '';
-      
-      updateRings(); 
+      updateRings();
       loadProgressPage();
-      
       setTimeout(() => setStatus('metricStatus', ''), 2000);
-    } catch (e) {
-      setStatus('metricStatus', '❌ ' + e.message, true);
-    }
+    } catch (e) { setStatus('metricStatus', '❌ ' + e.message, true); }
   };
 
   window.deleteMetricEntry = async function(dateStr) {
     if (!confirm('Delete this entry?')) return;
     let history = (currentProfile.weightHistory || []).filter(h => h.date !== dateStr);
-    
     try {
       await setDoc(doc(db, 'profiles', currentUser.uid), { weightHistory: history }, { merge: true });
       currentProfile.weightHistory = history;
@@ -1070,7 +1029,6 @@
     const height = currentProfile.heightCm;
     const weight = currentProfile.currentWeightKg;
     if (!height || !weight) { alert("Missing height or weight profile data."); return; }
-
     let bf = 0;
     if (currentMetricMethod === 'bmi') {
       const bmi = weight / ((height/100) * (height/100));
@@ -1079,57 +1037,31 @@
       const neck = parseFloat(document.getElementById('neckCm').value);
       const waist = parseFloat(document.getElementById('waistCm').value);
       const hip = parseFloat(document.getElementById('hipCm').value);
-      
       if (!neck || !waist || !hip) { alert("Please enter neck, waist and hip measurements."); return; }
-      
-      const neckIn = neck / 2.54;
-      const waistIn = waist / 2.54;
-      const hipIn = hip / 2.54;
-      const heightIn = height / 2.54;
-      
+      const neckIn = neck / 2.54, waistIn = waist / 2.54, hipIn = hip / 2.54, heightIn = height / 2.54;
       bf = 495 / (1.29579 - 0.35004 * Math.log10(waistIn + hipIn - neckIn) + 0.22100 * Math.log10(heightIn)) - 450;
     }
-
-    bf = Math.max(5, Math.min(60, bf)); 
-    
+    bf = Math.max(5, Math.min(60, bf));
     let history = currentProfile.weightHistory || [];
     const today = todayKey();
     let existingIdx = history.findIndex(h => h.date === today);
-    
-    const entry = {
-      date: today,
-      timestamp: Date.now(),
-      weight: weight,
-      bodyFat: parseFloat(bf.toFixed(1)),
-      method: currentMetricMethod
-    };
-
-    if (existingIdx >= 0) {
-      history[existingIdx] = entry;
-    } else {
-      history.push(entry);
-      history.sort((a,b) => new Date(a.date) - new Date(b.date));
-    }
-
+    const entry = { date: today, timestamp: Date.now(), weight: weight, bodyFat: parseFloat(bf.toFixed(1)), method: currentMetricMethod };
+    if (existingIdx >= 0) { history[existingIdx] = entry; }
+    else { history.push(entry); history.sort((a,b) => new Date(a.date) - new Date(b.date)); }
     try {
       await setDoc(doc(db, 'profiles', currentUser.uid), { weightHistory: history }, { merge: true });
       currentProfile.weightHistory = history;
-
       const box = document.getElementById('bodyFatResult');
       document.getElementById('bfPercentage').textContent = entry.bodyFat + '%';
-      
-      let desc = "";
-      let range = "";
-      if (entry.bodyFat < 14) { desc = "Athletic range."; range = "Essential: 10-13% | Athletic: 14-20% | Fitness: 21-24% | Average: 25-31%"; }
-      else if (entry.bodyFat < 21) { desc = "Fitness range. Great work!"; range = "Essential: 10-13% | Athletic: 14-20% | Fitness: 21-24% | Average: 25-31%"; }
-      else if (entry.bodyFat < 25) { desc = "Healthy Fitness range."; range = "Essential: 10-13% | Athletic: 14-20% | Fitness: 21-24% | Average: 25-31%"; }
-      else if (entry.bodyFat < 32) { desc = "Average/Healthy range for women."; range = "Essential: 10-13% | Athletic: 14-20% | Fitness: 21-24% | Average: 25-31%"; }
-      else { desc = "Above average range."; range = "Essential: 10-13% | Athletic: 14-20% | Fitness: 21-24% | Average: 25-31%"; }
-
+      let desc = "", range = "Essential: 10-13% | Athletic: 14-20% | Fitness: 21-24% | Average: 25-31%";
+      if (entry.bodyFat < 14) desc = "Athletic range.";
+      else if (entry.bodyFat < 21) desc = "Fitness range. Great work!";
+      else if (entry.bodyFat < 25) desc = "Healthy Fitness range.";
+      else if (entry.bodyFat < 32) desc = "Average/Healthy range for women.";
+      else desc = "Above average range.";
       document.getElementById('bfDescription').textContent = desc;
       document.getElementById('bfRange').innerHTML = `<strong>ACE Ranges:</strong><br>${range}`;
       box.classList.add('show');
-
       renderMetricsHistory();
     } catch (e) { alert("Error saving body fat: " + e.message); }
   };
@@ -1138,59 +1070,38 @@
     const history = currentProfile.weightHistory || [];
     const chartSvg = document.getElementById('progressChart');
     const timeline = document.getElementById('metricTimeline');
-    
     if (history.length === 0) {
       chartSvg.innerHTML = '';
       timeline.innerHTML = '<div class="empty">No history yet. Log your weight above to start tracking!</div>';
       return;
     }
-
     const data = history.map(h => currentChartMode === 'weight' ? h.weight : h.bodyFat);
     const min = Math.min(...data) * 0.98;
     const max = Math.max(...data) * 1.02;
     const range = max - min || 1;
-    
-    const w = 300; 
-    const h = 150;
-    const padding = 20;
-    
+    const w = 300, h = 150, padding = 20;
     let points = [];
     data.forEach((val, i) => {
       const x = padding + (i * ((w - padding * 2) / (data.length - 1 || 1)));
       const y = h - padding - ((val - min) / range) * (h - padding * 2);
       points.push({ x, y, val, date: history[i].date });
     });
-
     let pathD = "";
-    points.forEach((p, i) => {
-      pathD += (i === 0 ? "M" : "L") + `${p.x},${p.y} `;
-    });
-
-    let svgHtml = `
-      <line x1="0" y1="${h-padding}" x2="${w}" y2="${h-padding}" class="chart-axis" />
-      <path d="${pathD}" class="chart-line" />
-    `;
-    
-    points.forEach(p => {
-      svgHtml += `<circle cx="${p.x}" cy="${p.y}" r="4" class="chart-dot"><title>${p.date}: ${p.val}</title></circle>`;
-    });
-    
+    points.forEach((p, i) => { pathD += (i === 0 ? "M" : "L") + `${p.x},${p.y} `; });
+    let svgHtml = `<line x1="0" y1="${h-padding}" x2="${w}" y2="${h-padding}" class="chart-axis" /><path d="${pathD}" class="chart-line" />`;
+    points.forEach(p => { svgHtml += `<circle cx="${p.x}" cy="${p.y}" r="4" class="chart-dot"><title>${p.date}: ${p.val}</title></circle>`; });
     svgHtml += `<text x="${points[0].x}" y="${h-5}" class="chart-labels" text-anchor="middle">${points[0].date.slice(5)}</text>`;
     if (points.length > 1) {
       const last = points[points.length-1];
       svgHtml += `<text x="${last.x}" y="${h-5}" class="chart-labels" text-anchor="middle">${last.date.slice(5)}</text>`;
     }
-
     chartSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
     chartSvg.innerHTML = svgHtml;
-
-    const reversed = [...history].reverse(); 
+    const reversed = [...history].reverse();
     timeline.innerHTML = reversed.map(entry => `
       <div class="timeline-item">
         <div class="timeline-date">${entry.date.slice(5)}</div>
-        <div class="timeline-val">
-          ${currentChartMode === 'weight' ? '⚖️ ' + entry.weight + ' kg' : '🧍 ' + entry.bodyFat + '%'}
-        </div>
+        <div class="timeline-val">${currentChartMode === 'weight' ? '⚖️ ' + entry.weight + ' kg' : '🧍 ' + entry.bodyFat + '%'}</div>
         <button class="timeline-del" onclick="deleteMetricEntry('${entry.date}')">✕</button>
       </div>
     `).join('');
@@ -1200,10 +1111,8 @@
     if (!currentUser) return;
     const listEl = document.getElementById('weekList');
     const summaryEl = document.getElementById('weekSummary');
-    
     listEl.innerHTML = '<div class="empty">Loading…</div>';
     summaryEl.textContent = '—';
-
     try {
       const keys = lastNDays(7);
       const calMap = {};
@@ -1213,12 +1122,9 @@
         const snap = await getDocs(q);
         snap.forEach(d => { const m = d.data(); if (calMap[m.dateKey] !== undefined) calMap[m.dateKey] += (m.calories || 0); });
       } catch (e) { console.error('Week meals query failed:', e); }
-
       renderWeek(keys, calMap);
       renderMetricsHistory();
-    } catch (e) {
-      listEl.innerHTML = '<div class="empty">Could not load your week just now.</div>';
-    }
+    } catch (e) { listEl.innerHTML = '<div class="empty">Could not load your week just now.</div>'; }
   }
 
   function renderWeek(keys, calMap) {
@@ -1226,22 +1132,18 @@
     const summaryEl = document.getElementById('weekSummary');
     const target = currentProfile?.targets?.calorieTarget || 2000;
     const today = todayKey();
-
     let totalCal = 0, daysLogged = 0;
-
     const rows = keys.map(k => {
       const d = new Date(k + 'T12:00:00');
       const label = d.toLocaleDateString([], { weekday: 'short' }) + ' ' + d.getDate();
       const cal = calMap[k] || 0;
       totalCal += cal; if (cal > 0) daysLogged++;
       const pct = cal > 0 ? Math.max(4, Math.min(100, Math.round((cal / target) * 100))) : 0;
-
       return `<div class="week-row${k === today ? ' today' : ''}">
         <div class="week-top"><span>${label}${k === today ? ' · today' : ''}</span><span>${cal ? cal + ' cal' : '—'}</span></div>
         <div class="week-bar-wrap"><div class="week-bar" style="width:${pct}%"></div></div>
       </div>`;
     }).join('');
-
     listEl.innerHTML = rows;
     const avg = daysLogged ? Math.round(totalCal / daysLogged) : 0;
     summaryEl.innerHTML = `<strong>${daysLogged}</strong> of 7 days logged · average <strong>${avg}</strong> cal on logged days`;
@@ -1250,14 +1152,12 @@
   function lastNDays(n) {
     const out = [];
     for (let i = n - 1; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
+      const d = new Date(); d.setDate(d.getDate() - i);
       out.push(d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
     }
     return out;
   }
 
-  // ---------- Coach Mark ----------
   window.dismissCoachMark = function() {
     const el = document.getElementById('chatCoachMark');
     if (el) el.classList.remove('show');
@@ -1273,7 +1173,6 @@
     }
   }
 
-  // ---------- Activity Level Helper ----------
   const activityDesc = {
     sedentary: "💡 Mostly sitting — office work, reading, TV. Very little walking.",
     light: "💡 On your feet a little — light chores, short walks, standing occasionally.",
@@ -1284,20 +1183,14 @@
   window.updateActivityHelp = function() {
     const val = document.getElementById('activityLevel').value;
     const el = document.getElementById('activityHelp');
-    if (el) {
-      el.textContent = activityDesc[val] || '';
-      el.classList.add('show');
-    }
+    if (el) { el.textContent = activityDesc[val] || ''; el.classList.add('show'); }
   };
 
-  // ---------- Slider (Educational Page) ----------
   window.updateSliderUI = function(val) {
     val = parseInt(val);
     document.getElementById('sliderDisplay').textContent = val;
-    
     const deficit = calculatedTDEE - val;
     const box = document.getElementById('deficitBox');
-    
     if (deficit > 0) {
       const kgPerWeek = ((deficit * 7) / 7700).toFixed(2);
       box.innerHTML = `I recommend aiming for about <strong>${val} calories</strong> to start. This leaves enough room for delicious, filling meals while still helping you lose weight at a safe pace (roughly <strong>${kgPerWeek} kg</strong> a week).<br><br>Don't worry about getting this perfect right now. You can always adjust this in Settings later!`;
@@ -1308,19 +1201,16 @@
     }
   };
 
-  // ---------- Smart Tips ----------
   function showRandomTip() {
     if (!showSmartTips || !currentProfile) return;
     const banner = document.getElementById('smartTipBanner');
     const textEl = document.getElementById('smartTipText');
     if (!banner || !textEl) return;
-    
     const p = currentProfile;
     const allergies = (p.allergies || '').toLowerCase();
     let safeProtein = "a hard-boiled egg or a small Greek yogurt";
     if (allergies.includes('egg')) safeProtein = "a small Greek yogurt or a handful of almonds";
     if (allergies.includes('yogurt') || allergies.includes('dairy')) safeProtein = "a handful of almonds or some roasted chickpeas";
-    
     const tips = [
       `Did you know you can snap a photo of a supermarket label to instantly see the macros?`,
       `Struggling with a sweet craving? A square of dark chocolate or a handful of berries often does the trick for under 100 calories.`,
@@ -1328,9 +1218,7 @@
       `Protein keeps you full! If you're peckish, ${safeProtein} is a great choice.`,
       `You can ask me to suggest a healthy recipe based on whatever is left in your fridge. Just open the chat!`
     ];
-
     const randomTip = tips[Math.floor(Math.random() * tips.length)];
-    
     if (todaysMeals.length > 0 && Math.random() > 0.5) {
       const calTotal = todaysMeals.reduce((s, m) => s + (m.calories || 0), 0);
       const target = p.targets?.calorieTarget || 2000;
@@ -1342,17 +1230,13 @@
     } else {
       textEl.innerHTML = `💡 <strong>Dietitian Tip:</strong> ${randomTip}`;
     }
-    
     banner.classList.add('show');
   }
 
   window.toggleSmartTips = function() {
     showSmartTips = document.getElementById('toggleTips').checked;
-    if (!showSmartTips) {
-      document.getElementById('smartTipBanner').classList.remove('show');
-    } else {
-      showRandomTip();
-    }
+    if (!showSmartTips) document.getElementById('smartTipBanner').classList.remove('show');
+    else showRandomTip();
   };
 
   window.dismissTip = function() {
@@ -1365,20 +1249,19 @@
     if (el) el.classList.remove('show');
   };
 
-  // ---------- Chat & AI ----------
-  window.openChat = function() { 
-    document.getElementById('chatOverlay').classList.add('open'); 
+  window.openChat = function() {
+    document.getElementById('chatOverlay').classList.add('open');
     dismissCoachMark();
     setTimeout(() => {
       const container = document.getElementById('chatMessages');
       container.scrollTop = container.scrollHeight;
       document.getElementById('chatInput').focus();
-    }, 500); 
+    }, 700);
   };
-  
-  window.closeChat = function() { 
-    document.getElementById('chatOverlay').classList.remove('open'); 
-    window.speechSynthesis.cancel(); 
+
+  window.closeChat = function() {
+    document.getElementById('chatOverlay').classList.remove('open');
+    window.speechSynthesis.cancel();
   };
 
   window.sendQuickChat = function(text) {
@@ -1389,39 +1272,28 @@
   async function loadChatHistory() {
     if (!currentUser) return;
     if (unsubChat) unsubChat();
-    
     document.getElementById('chatMessages').innerHTML = '';
-    chatHistory = []; 
-    
+    chatHistory = [];
     try {
       const q = query(collection(db, 'chats', currentUser.uid, 'messages'), orderBy('createdAt', 'asc'));
       unsubChat = onSnapshot(q, (snap) => {
-        document.getElementById('chatMessages').innerHTML = ''; 
-        chatHistory = []; 
-        
+        document.getElementById('chatMessages').innerHTML = '';
+        chatHistory = [];
         if (snap.empty) {
           appendChatMsg(WELCOME_MSG, 'ai', getTimeString());
           chatHistory.push({ role: "assistant", content: WELCOME_MSG });
           return;
         }
-
         snap.forEach(docSnap => {
           const msg = docSnap.data();
           appendChatMsg(msg.text, msg.sender, msg.timeString);
-          if (msg.logData) {
-             appendActionCard(msg.logData);
-          }
+          if (msg.logData) appendActionCard(msg.logData);
           chatHistory.push({ role: msg.sender === 'user' ? 'user' : 'assistant', content: msg.text });
         });
-        
         const container = document.getElementById('chatMessages');
         container.scrollTop = container.scrollHeight;
-      }, (error) => {
-        console.error("Firestore Chat Listener Error:", error);
-      });
-    } catch (e) {
-      console.error("Error loading chat:", e);
-    }
+      }, (error) => { console.error("Firestore Chat Listener Error:", error); });
+    } catch (e) { console.error("Error loading chat:", e); }
   }
 
   async function saveChatMessage(text, sender, timeString, logData = null) {
@@ -1460,19 +1332,14 @@
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
     if (!text) return;
-
     input.value = '';
     const time = getTimeString();
-    
     appendChatMsg(text, 'user', time);
     chatHistory.push({ role: 'user', content: text });
     saveChatMessage(text, 'user', time);
-    
     isChatting = true;
-    
     const container = document.getElementById('chatMessages');
     const typingWrapper = document.getElementById('typingWrapper');
-    
     try {
       const p = currentProfile || { name: 'Fiona', age: FIONA_AGE, goal: '', activityLevel: '', medicalConditions: [] };
       const calTotal = todaysMeals.reduce((s, m) => s + (m.calories || 0), 0);
@@ -1481,16 +1348,11 @@
       const dateString = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       const snapsSummary = buildSnapsSummary(8);
       const recipeTitles = savedRecipes.map(r => r.title).join(', ') || 'None';
-      
       const allergies = p.allergies || 'None';
       const dislikes = p.dislikes || 'None';
       const currentWeight = p.currentWeightKg || 'Unknown';
-      
       const latestBodyFat = (p.weightHistory && p.weightHistory.length > 0) ? p.weightHistory[p.weightHistory.length-1].bodyFat : null;
-
-      const systemMsg = { 
-        role: 'system', 
-        content: `You are a warm, friendly, human nutritionist texting with your client, ${p.name}. The current date is ${dateString} and the time is ${timeString}. She has eaten ${calTotal} cal today. Her current weight is ${currentWeight}kg${latestBodyFat ? ` and body fat is ${latestBodyFat}%` : ''}. 
+      const systemMsg = { role: 'system', content: `You are a warm, friendly, human nutritionist texting with your client, ${p.name}. The current date is ${dateString} and the time is ${timeString}. She has eaten ${calTotal} cal today. Her current weight is ${currentWeight}kg${latestBodyFat ? ` and body fat is ${latestBodyFat}%` : ''}. 
         
         CRITICAL ALLERGY GUARDRAIL: She is severely allergic to: ${allergies}. She dislikes: ${dislikes}. You MUST NEVER suggest foods, recipes, or snacks containing these. If she asks for a food containing an allergen, tell her gently and suggest a safe alternative.
         
@@ -1505,32 +1367,19 @@
         3. Always ask a follow-up question at the end to check if she understands or needs help with anything else.
         4. If she mentions a specific restaurant, a menu, or a food you don't know the exact details of, you MUST immediately suggest she use the 📷 camera button to take a photo of it so you can read it for her. Do not try to guess the menu.
         5. Never mention being an AI. Never use bullet points for casual chat.
-        6. YOU CANNOT LOG FOOD YOURSELF. The app does that. If she tells you she ate something (e.g., "I had pie", or says "yes" to your offer to log it), you MUST append this exact tag to the very end of your reply: [LOG_FOOD: {"description": "Pie", "calories": 350, "protein": 4, "carbs": 45, "fat": 18, "fibre": 2, "satFat": 8}]. NEVER say "I added it" or "added". Instead say "I've prepared it for you to add below" and output the tag.` 
-      };
-
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [systemMsg, ...chatHistory] })
-      });
-
+        6. YOU CANNOT LOG FOOD YOURSELF. The app does that. If she tells you she ate something (e.g., "I had pie", or says "yes" to your offer to log it), you MUST append this exact tag to the very end of your reply: [LOG_FOOD: {"description": "Pie", "calories": 350, "protein": 4, "carbs": 45, "fat": 18, "fibre": 2, "satFat": 8}]. NEVER say "I added it" or "added". Instead say "I've prepared it for you to add below" and output the tag.` };
+      const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: [systemMsg, ...chatHistory] }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "API Error");
       let reply = data.choices?.[0]?.message?.content || "I didn't quite catch that.";
-      
-      // Check for AI log trigger
       let logData = null;
       const logMatch = reply.match(/\[LOG_FOOD:\s*(\{[\s\S]*?\})\s*\]/);
       if (logMatch) {
-          try {
-              logData = JSON.parse(logMatch[1]);
-              reply = reply.replace(logMatch[0], '').trim();
-          } catch(e) { console.error("Failed to parse log data", e); }
+        try { logData = JSON.parse(logMatch[1]); reply = reply.replace(logMatch[0], '').trim(); }
+        catch(e) { console.error("Failed to parse log data", e); }
       }
-
       chatHistory.push({ role: 'assistant', content: reply });
-
-      let chunks = [reply]; 
+      let chunks = [reply];
       if (reply.length > 180) {
         let split = reply.split(/\n\n+/);
         if (split.length === 1) {
@@ -1542,22 +1391,18 @@
         }
         if (split.length > 1) chunks = split.slice(0, 2).map(c => c.trim()).filter(c => c.length > 0);
       }
-      
       for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i];
         const isLast = (i === chunks.length - 1);
-        
         typingWrapper.classList.add('show');
         container.scrollTop = container.scrollHeight;
-        let typingTime = 800 + (chunk.length * 25); 
-        typingTime = Math.min(typingTime, 4000); 
+        let typingTime = Math.min(800 + (chunk.length * 25), 4000);
         await new Promise(resolve => setTimeout(resolve, typingTime));
         typingWrapper.classList.remove('show');
         appendChatMsg(chunk, 'ai', getTimeString());
         saveChatMessage(chunk, 'ai', getTimeString(), isLast ? logData : null);
         if (i < chunks.length - 1) await new Promise(resolve => setTimeout(resolve, 800));
       }
-
       isChatting = false;
     } catch (e) {
       typingWrapper.classList.remove('show');
@@ -1566,144 +1411,86 @@
     }
   };
 
-  // Speech Synthesis (TTS) Function
   window.speakText = function(text, btn) {
     window.speechSynthesis.cancel();
-
-    if (btn.classList.contains('speaking')) {
-        btn.classList.remove('speaking');
-        return;
-    }
-
+    if (btn.classList.contains('speaking')) { btn.classList.remove('speaking'); return; }
     let cleanText = text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').replace(/[#_]/g, '');
-    
     const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.95; 
+    utterance.rate = 0.95;
     utterance.pitch = 1.0;
-    
     const voices = window.speechSynthesis.getVoices();
     let preferredVoice = voices.find(v => v.name.includes('Google UK English Female') || v.name.includes('Samantha') || v.name.includes('Karen'));
     if (!preferredVoice) preferredVoice = voices.find(v => v.lang.includes('en') && v.name.includes('Female'));
     if (!preferredVoice) preferredVoice = voices.find(v => v.lang.includes('en'));
     if (preferredVoice) utterance.voice = preferredVoice;
-
     utterance.onstart = () => { btn.classList.add('speaking'); };
     utterance.onend = () => { btn.classList.remove('speaking'); };
     utterance.onerror = () => { btn.classList.remove('speaking'); };
-
     window.speechSynthesis.speak(utterance);
   };
 
   function appendActionCard(data) {
-      const container = document.getElementById('chatMessages');
-      const card = document.createElement('div');
-      card.className = 'chat-action-card';
-      
-      const safeDesc = escapeHtml(data.description || 'Unknown Meal');
-      const safeData = encodeURIComponent(JSON.stringify(data));
-
-      card.innerHTML = `
-          <div class="chat-action-info">
-              <strong>Log this meal?</strong><br>
-              ${safeDesc} (~${data.calories} cal, ${data.protein}g protein)
-          </div>
-          <button class="btn-terra" onclick="confirmChatLog(this, '${safeData}')">✅ Add to Diary</button>
-      `;
-      container.appendChild(card);
-      container.scrollTop = container.scrollHeight;
+    const container = document.getElementById('chatMessages');
+    const card = document.createElement('div');
+    card.className = 'chat-action-card';
+    const safeDesc = escapeHtml(data.description || 'Unknown Meal');
+    const safeData = encodeURIComponent(JSON.stringify(data));
+    card.innerHTML = `<div class="chat-action-info"><strong>Log this meal?</strong><br>${safeDesc} (~${data.calories} cal, ${data.protein}g protein)</div><button class="btn-terra" onclick="confirmChatLog(this, '${safeData}')">✅ Add to Diary</button>`;
+    container.appendChild(card);
+    container.scrollTop = container.scrollHeight;
   }
 
   window.confirmChatLog = async function(btn, encodedData) {
-      try {
-          const data = JSON.parse(decodeURIComponent(encodedData));
-          await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
-              description: data.description,
-              calories: data.calories || 0,
-              protein: data.protein || 0,
-              carbs: data.carbs || 0,
-              fat: data.fat || 0,
-              fibre: data.fibre || 0,
-              satFat: data.satFat || 0,
-              mealType: defaultMealType(),
-              dateKey: todayKey(),
-              createdAt: serverTimestamp()
-          });
-          btn.textContent = '✅ Added to Diary!';
-          btn.disabled = true;
-          btn.style.opacity = '0.5';
-      } catch(e) {
-          alert("Error logging meal: " + e.message);
-      }
+    try {
+      const data = JSON.parse(decodeURIComponent(encodedData));
+      await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
+        description: data.description, calories: data.calories || 0, protein: data.protein || 0, carbs: data.carbs || 0,
+        fat: data.fat || 0, fibre: data.fibre || 0, satFat: data.satFat || 0,
+        mealType: defaultMealType(), dateKey: todayKey(), createdAt: serverTimestamp()
+      });
+      btn.textContent = '✅ Added to Diary!';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+    } catch(e) { alert("Error logging meal: " + e.message); }
   };
 
-  // ---------- Photo Scanning ----------
   window.handleChatPhoto = function(event) {
     const file = event.target.files[0];
     if (!file || !currentUser) return;
-    
     document.getElementById('chatFileCamera').value = '';
-
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const base64Image = e.target.result; 
+      const base64Image = e.target.result;
       const photoNote = "[Sent a food photo]";
       appendChatMsg(photoNote, 'user', getTimeString());
       saveChatMessage(photoNote, 'user', getTimeString());
-      
       isChatting = true;
       const typingWrapper = document.getElementById('typingWrapper');
       typingWrapper.classList.add('show');
       const container = document.getElementById('chatMessages');
       container.scrollTop = container.scrollHeight;
-
       try {
         const allergies = currentProfile?.allergies || 'none';
         const system = `You are an expert nutritionist. The user uploaded an image. She is allergic to: ${allergies}. Look at the image, estimate the meal, and respond with a JSON object: {"meal": "description", "calories": 000, "protein": 00, "carbs": 00, "fat": 00, "fibre": 00, "satFat": 00, "advice": "1 short sentence", "allergyWarning": "If it contains any allergen from the list, explain it here. Else null.", "alternative": "If it contains an allergen, suggest a safe alternative here. Else null."}. Do not add any extra text outside the JSON.`;
-        
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            isVision: true,
-            messages: [
-              { role: 'system', content: system },
-              { role: 'user', content: [{ type: "text", text: "Analyze this food photo." }, { type: "image_url", image_url: { url: base64Image } }] }
-            ]
-          })
-        });
-
-        const rawText = await res.text(); 
+        const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ isVision: true, messages: [{ role: 'system', content: system }, { role: 'user', content: [{ type: "text", text: "Analyze this food photo." }, { type: "image_url", image_url: { url: base64Image } }] }] }) });
+        const rawText = await res.text();
         let data;
         try { data = JSON.parse(rawText); } catch (e) { throw new Error("AI returned an empty response."); }
         if (!res.ok) throw new Error(data.error || "API Error");
-
         const raw = data.choices?.[0]?.message?.content || '';
         const match = raw.match(/\{[\s\S]*\}/);
         if (!match) throw new Error("Could not read the nutritional data.");
         const parsed = JSON.parse(match[0]);
-
         const thumb = await downscaleImage(base64Image);
-
         await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
-          description: parsed.meal || 'Scanned Meal',
-          calories: parsed.calories || 0,
-          protein: parsed.protein || 0,
-          carbs: parsed.carbs || 0,
-          fat: parsed.fat || 0,
-          fibre: parsed.fibre || 0,
-          satFat: parsed.satFat || 0,
-          mealType: defaultMealType(),
-          photo: thumb,
-          dateKey: todayKey(),
-          createdAt: serverTimestamp()
+          description: parsed.meal || 'Scanned Meal', calories: parsed.calories || 0, protein: parsed.protein || 0, carbs: parsed.carbs || 0,
+          fat: parsed.fat || 0, fibre: parsed.fibre || 0, satFat: parsed.satFat || 0,
+          mealType: defaultMealType(), photo: thumb, dateKey: todayKey(), createdAt: serverTimestamp()
         });
-
         let replyText = `that looks like **${parsed.meal}**! 😋\n\n📊 calories: ${parsed.calories}\n🥩 protein: ${parsed.protein}g\n🍞 carbs: ${parsed.carbs}g\n🥑 fat: ${parsed.fat}g\n\n💡 *${parsed.advice}*\n\nI've saved it to your food diary too — you'll find the photo in the 📸 Snaps tab.`;
-        
         if (parsed.allergyWarning && parsed.allergyWarning !== 'null') {
-           replyText += `\n\n⚠️ **ALLERGY WARNING:** ${parsed.allergyWarning}\n\n**Safe Alternative:** ${parsed.alternative}`;
+          replyText += `\n\n⚠️ **ALLERGY WARNING:** ${parsed.allergyWarning}\n\n**Safe Alternative:** ${parsed.alternative}`;
         }
-
         typingWrapper.classList.remove('show');
         appendChatMsg(replyText, 'ai', getTimeString());
         saveChatMessage(replyText, 'ai', getTimeString());
@@ -1720,52 +1507,27 @@
   window.handlePhotoUpload = async function(event) {
     const file = event.target.files[0];
     if (!file || !currentUser) return;
-
     setStatus('photoStatus', 'Analyzing photo...');
-    
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const base64Image = e.target.result; 
+      const base64Image = e.target.result;
       try {
         const allergies = currentProfile?.allergies || 'none';
         const system = `You are an expert nutritionist. The user uploaded an image. She is allergic to: ${allergies}. Respond ONLY with a JSON object: {"meal": "description", "calories": 000, "protein": 00, "carbs": 00, "fat": 00, "fibre": 00, "satFat": 00, "advice": "1 short sentence", "allergyWarning": "If it contains any allergen from the list, explain it here. Else null.", "alternative": "If it contains an allergen, suggest a safe alternative here. Else null."}. Do not add any extra text.`;
-        
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            isVision: true,
-            messages: [
-              { role: 'system', content: system },
-              { role: 'user', content: [{ type: "text", text: "Analyze this food photo." }, { type: "image_url", image_url: { url: base64Image } }] }
-            ]
-          })
-        });
-
-        const rawText = await res.text(); 
+        const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ isVision: true, messages: [{ role: 'system', content: system }, { role: 'user', content: [{ type: "text", text: "Analyze this food photo." }, { type: "image_url", image_url: { url: base64Image } }] }] }) });
+        const rawText = await res.text();
         let data;
         try { data = JSON.parse(rawText); } catch (e) { throw new Error("AI returned an empty response."); }
         if (!res.ok) throw new Error(data.error || "API Error");
-
         const raw = data.choices?.[0]?.message?.content || '';
         const match = raw.match(/\{[\s\S]*\}/);
         if (!match) throw new Error("Could not read the nutritional data.");
         const parsed = JSON.parse(match[0]);
-
         const thumb = await downscaleImage(base64Image);
-
         pendingScanData = {
-          description: parsed.meal || 'Scanned Meal',
-          calories: parsed.calories || 0,
-          protein: parsed.protein || 0,
-          carbs: parsed.carbs || 0,
-          fat: parsed.fat || 0,
-          fibre: parsed.fibre || 0,
-          satFat: parsed.satFat || 0,
-          photo: thumb,
-          dateKey: todayKey()
+          description: parsed.meal || 'Scanned Meal', calories: parsed.calories || 0, protein: parsed.protein || 0, carbs: parsed.carbs || 0,
+          fat: parsed.fat || 0, fibre: parsed.fibre || 0, satFat: parsed.satFat || 0, photo: thumb, dateKey: todayKey()
         };
-
         document.getElementById('scanPreview').src = base64Image;
         document.getElementById('scanDesc').textContent = parsed.meal;
         document.getElementById('scanCal').textContent = parsed.calories;
@@ -1776,15 +1538,11 @@
         document.getElementById('scanSatFat').textContent = (parsed.satFat || 0) + 'g';
         document.getElementById('scanAdvice').textContent = parsed.advice;
         document.getElementById('scanType').value = defaultMealType();
-
         const warningEl = document.getElementById('scanAllergyWarning');
         if (parsed.allergyWarning && parsed.allergyWarning !== 'null') {
-           warningEl.innerHTML = `⚠️ <strong>Allergy Alert:</strong> ${parsed.allergyWarning}<br><br><strong>Safe Alternative:</strong> ${parsed.alternative}`;
-           warningEl.classList.add('show');
-        } else {
-           warningEl.classList.remove('show');
-        }
-
+          warningEl.innerHTML = `⚠️ <strong>Allergy Alert:</strong> ${parsed.allergyWarning}<br><br><strong>Safe Alternative:</strong> ${parsed.alternative}`;
+          warningEl.classList.add('show');
+        } else { warningEl.classList.remove('show'); }
         document.getElementById('scanModal').classList.add('show');
         setStatus('photoStatus', '');
       } catch (err) {
@@ -1799,11 +1557,7 @@
     if (!pendingScanData || !currentUser) return;
     const typeEl = document.getElementById('scanType');
     try {
-      await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
-        ...pendingScanData,
-        mealType: (typeEl && typeEl.value) || defaultMealType(),
-        createdAt: serverTimestamp()
-      });
+      await addDoc(collection(db, 'meals', currentUser.uid, 'items'), { ...pendingScanData, mealType: (typeEl && typeEl.value) || defaultMealType(), createdAt: serverTimestamp() });
       document.getElementById('scanModal').classList.remove('show');
       pendingScanData = null;
       document.getElementById('fileCamera').value = '';
@@ -1817,9 +1571,7 @@
         title: pendingScanData.description,
         ingredients: `Calories: ${pendingScanData.calories}, Protein: ${pendingScanData.protein}g, Carbs: ${pendingScanData.carbs}g, Fat: ${pendingScanData.fat}g`,
         steps: "This was saved from a photo. Try making it yourself!",
-        photo: pendingScanData.photo,
-        prompt: "Inspiration snap",
-        createdAt: serverTimestamp()
+        photo: pendingScanData.photo, prompt: "Inspiration snap", createdAt: serverTimestamp()
       });
       document.getElementById('scanModal').classList.remove('show');
       pendingScanData = null;
@@ -1834,10 +1586,8 @@
     document.getElementById('fileCamera').value = '';
   };
 
-  // ---------- Daily Breakdown ----------
   window.openDailyBreakdown = function() {
     if (!currentProfile) return;
-    
     const target = currentProfile.targets?.calorieTarget || 2000;
     const calTotal = todaysMeals.reduce((s, m) => s + (m.calories || 0), 0);
     const proTotal = todaysMeals.reduce((s, m) => s + (Number(m.protein) || 0), 0);
@@ -1845,17 +1595,14 @@
     const fatTotal = todaysMeals.reduce((s, m) => s + (Number(m.fat) || 0), 0);
     const fibreTotal = todaysMeals.reduce((s, m) => s + (Number(m.fibre) || 0), 0);
     const satFatTotal = todaysMeals.reduce((s, m) => s + (Number(m.satFat) || 0), 0);
-
     document.getElementById('bdCalories').innerHTML = `${calTotal} <span>/ ${target} cal</span>`;
     document.getElementById('bdProtein').textContent = Math.round(proTotal) + 'g';
     document.getElementById('bdCarbs').textContent = Math.round(carbTotal) + 'g';
     document.getElementById('bdFat').textContent = Math.round(fatTotal) + 'g';
     document.getElementById('bdFibre').textContent = Math.round(fibreTotal) + 'g';
     document.getElementById('bdSatFat').textContent = Math.round(satFatTotal) + 'g';
-
     const container = document.getElementById('bdMealsContainer');
     let html = '';
-
     if (!todaysMeals.length) {
       html = '<div class="empty">No meals logged yet today.</div>';
     } else {
@@ -1863,30 +1610,22 @@
         const mealsOfType = todaysMeals.filter(m => (m.mealType || 'dinner') === type.v);
         if (mealsOfType.length > 0) {
           html += `<div class="bd-meal-group"><div class="bd-meal-title">${type.icon} ${type.label}</div>`;
-          mealsOfType.forEach(m => {
-            html += `<div class="bd-meal-item"><span>${escapeHtml(m.description)}</span><span>${m.calories || 0} cal</span></div>`;
-          });
+          mealsOfType.forEach(m => { html += `<div class="bd-meal-item"><span>${escapeHtml(m.description)}</span><span>${m.calories || 0} cal</span></div>`; });
           html += `</div>`;
         }
       });
     }
     container.innerHTML = html;
-
     let insight = "You're doing great! Keep logging your meals to see your progress.";
     if (calTotal === 0) {
       insight = "You haven't logged anything yet today. Snap a photo of your next meal to get started!";
     } else {
       const remaining = target - calTotal;
-      if (remaining < 0) {
-        insight = "You've gone slightly over your target today. Don't stress—tomorrow is a new day. A gentle walk tonight might help you feel better.";
-      } else if (proTotal < 30 && remaining > 300) {
-        insight = `You have ${remaining} calories left, but could use more protein. Try a safe, high-protein snack!`;
-      } else {
-        insight = `You have about ${remaining} calories left today. You're doing a great job keeping track!`;
-      }
+      if (remaining < 0) insight = "You've gone slightly over your target today. Don't stress—tomorrow is a new day. A gentle walk tonight might help you feel better.";
+      else if (proTotal < 30 && remaining > 300) insight = `You have ${remaining} calories left, but could use more protein. Try a safe, high-protein snack!`;
+      else insight = `You have about ${remaining} calories left today. You're doing a great job keeping track!`;
     }
     document.getElementById('bdInsight').textContent = insight;
-
     document.getElementById('breakdownOverlay').classList.add('open');
     document.getElementById('breakdownSheet').classList.add('open');
   };
@@ -1896,7 +1635,6 @@
     document.getElementById('breakdownSheet').classList.remove('open');
   };
 
-  // ---------- Other App Functions ----------
   function renderSnaps() {
     const el = document.getElementById('snapsList');
     if (!el) return;
@@ -1907,24 +1645,16 @@
     const todayK = todayKey();
     const yestD = new Date(); yestD.setDate(yestD.getDate() - 1);
     const yestK = yestD.getFullYear() + '-' + String(yestD.getMonth()+1).padStart(2,'0') + '-' + String(yestD.getDate()).padStart(2,'0');
-
     const groups = {};
-    allSnaps.forEach(m => {
-      const k = m.dateKey || 'older';
-      if (!groups[k]) groups[k] = [];
-      groups[k].push(m);
-    });
-
+    allSnaps.forEach(m => { const k = m.dateKey || 'older'; if (!groups[k]) groups[k] = []; groups[k].push(m); });
     const keys = Object.keys(groups).sort().reverse();
     let html = '';
     keys.forEach(k => {
       let label = k;
       if (k === todayK) label = 'Today';
       else if (k === yestK) label = 'Yesterday';
-      else if (k !== 'older') {
-        try { label = new Date(k + 'T12:00:00').toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' }); } catch (e) {}
-      } else { label = 'Older'; }
-
+      else if (k !== 'older') { try { label = new Date(k + 'T12:00:00').toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' }); } catch (e) {} }
+      else { label = 'Older'; }
       html += `<div class="snap-date-header">${escapeHtml(label)}</div>`;
       groups[k].forEach(m => {
         const t = MEAL_TYPE_MAP[m.mealType];
@@ -1976,20 +1706,18 @@
     const container = document.getElementById('chatMessages');
     const wrapper = document.createElement('div');
     wrapper.className = `msg-wrapper ${sender}`;
-    
     let ttsBtn = '';
     if (sender === 'ai') {
-       const safeText = text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-       ttsBtn = `<button class="tts-btn" onclick="speakText('${safeText}', this)">🔊 Listen</button>`;
+      const safeText = text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      ttsBtn = `<button class="tts-btn" onclick="speakText('${safeText}', this)">🔊 Listen</button>`;
     }
-
     wrapper.innerHTML = `<div class="msg-time">${escapeHtml(time)}</div><div class="chat-msg ${sender}">${formatChatText(text)}${ttsBtn}</div>`;
     container.appendChild(wrapper);
     container.scrollTop = container.scrollHeight;
   }
 
   window.signInWithGoogle = async function() {
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); } 
+    try { await signInWithPopup(auth, new GoogleAuthProvider()); }
     catch (e) { setStatus('status', 'Failed: ' + e.message, true); }
   };
 
@@ -2009,25 +1737,20 @@
 
   window.wizNext = function(step) {
     if (step === 3) {
-      const p = buildProfileObj(); 
+      const p = buildProfileObj();
       const targets = computeTargets(p);
       calculatedTDEE = targets.tdee || 2000;
       document.getElementById('wizTdee').textContent = calculatedTDEE;
-      
       let initialTarget = targets.calorieTarget || 1800;
-      if (currentProfile && currentProfile.targets) {
-        initialTarget = currentProfile.targets.calorieTarget || initialTarget;
-      }
-      
+      if (currentProfile && currentProfile.targets) initialTarget = currentProfile.targets.calorieTarget || initialTarget;
       document.getElementById('calSlider').min = Math.max(1200, Math.round((targets.bmr || 1200) / 10) * 10);
       document.getElementById('calSlider').max = Math.round((calculatedTDEE + 500) / 50) * 50;
       document.getElementById('calSlider').value = initialTarget;
-      
       updateSliderUI(initialTarget);
     }
     showWizard(step + 1);
   };
-  
+
   window.wizBack = function(step) { showWizard(step - 1); };
 
   document.querySelectorAll('.chip input').forEach(cb => {
@@ -2036,10 +1759,8 @@
 
   function buildProfileObj() {
     const meds = Array.from(document.querySelectorAll('.med:checked')).map(cb => cb.value);
-    
     const hVal = parseFloat(document.getElementById('heightCm').value);
     const wVal = parseFloat(document.getElementById('currentWeightKg').value);
-    
     return {
       name: 'Fiona', age: FIONA_AGE,
       heightCm: hVal || currentProfile?.heightCm || null,
@@ -2065,61 +1786,42 @@
     let calorieTarget = p.goal === 'lose_weight' ? tdee + paceAdjust : tdee;
     calorieTarget = Math.max(1200, Math.round(calorieTarget / 10) * 10);
     const proteinTarget = Math.round(w * 1.2);
-    const fibreTarget = Math.round((calorieTarget / 1000) * 14); 
+    const fibreTarget = Math.round((calorieTarget / 1000) * 14);
     return { bmr, calorieTarget, proteinTarget, fibreTarget, tdee };
   }
 
   window.saveProfile = async function() {
     const btn = document.getElementById('saveBtn');
     const profile = buildProfileObj();
-    
-    if (!profile.heightCm) {
-        setStatus('formStatus', '⚠️ Please enter your height.', true);
-        return;
-    }
-
+    if (!profile.heightCm) { setStatus('formStatus', '⚠️ Please enter your height.', true); return; }
     profile.createdAt = new Date().toISOString();
     profile.setupComplete = true;
-    
     profile.targets = computeTargets(profile);
-    
     const sliderVal = parseInt(document.getElementById('calSlider').value);
     if (!isNaN(sliderVal)) {
       profile.targets.calorieTarget = sliderVal;
       profile.targets.fibreTarget = Math.round((sliderVal / 1000) * 14);
     }
-
     btn.disabled = true; setStatus('formStatus', 'Saving…');
     try {
       await setDoc(doc(db, 'profiles', currentUser.uid), profile, { merge: true });
       currentProfile = profile; setStatus('formStatus', '✅ All set!');
       await loadTodayData(); setTimeout(renderDashboard, 500);
-    } catch (e) {
-      setStatus('formStatus', '❌ ' + e.message, true); btn.disabled = false;
-    }
+    } catch (e) { setStatus('formStatus', '❌ ' + e.message, true); btn.disabled = false; }
   };
 
   async function loadTodayData() {
     activeDayKey = todayKey();
-    
     if (unsubMeals) unsubMeals();
     try {
       const q = query(collection(db, 'meals', currentUser.uid, 'items'), where('dateKey', '==', todayKey()));
-      unsubMeals = onSnapshot(q, (snap) => { 
-        let meals = snap.docs.map(d => ({ id: d.id, ...d.data() })); 
-        meals.sort((a, b) => {
-          const timeA = a.createdAt?.toMillis() || 0;
-          const timeB = b.createdAt?.toMillis() || 0;
-          return timeA - timeB;
-        });
-        todaysMeals = meals; 
-        updateRings(); 
-      }, (err) => { 
-        console.error("Meals fetch error:", err);
-        todaysMeals = []; updateRings(); 
-      });
+      unsubMeals = onSnapshot(q, (snap) => {
+        let meals = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        meals.sort((a, b) => ((a.createdAt?.toMillis() || 0) - (b.createdAt?.toMillis() || 0)));
+        todaysMeals = meals;
+        updateRings();
+      }, (err) => { console.error("Meals fetch error:", err); todaysMeals = []; updateRings(); });
     } catch (e) { todaysMeals = []; }
-
     if (unsubSnaps) unsubSnaps();
     try {
       const qSnaps = query(collection(db, 'meals', currentUser.uid, 'items'), orderBy('createdAt', 'desc'), limit(80));
@@ -2128,13 +1830,11 @@
         renderSnaps();
       });
     } catch (e) { allSnaps = []; }
-
     if (unsubRecipes) unsubRecipes();
     try {
       const q = query(collection(db, 'recipes', currentUser.uid, 'items'), orderBy('createdAt', 'desc'));
       unsubRecipes = onSnapshot(q, (snap) => { savedRecipes = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderRecipes(); }, () => { savedRecipes = []; renderRecipes(); });
     } catch (e) { savedRecipes = []; }
-    
     await loadChatHistory();
   }
 
@@ -2143,56 +1843,31 @@
     const typeEl = document.getElementById('mealType');
     const btn = document.getElementById('addMealBtn');
     const description = descEl.value.trim();
-    
     if (!description) { setStatus('mealStatus', 'Please write what you ate.', true); return; }
-    
     btn.disabled = true;
     btn.textContent = "Calculating...";
     setStatus('mealStatus', 'Asking dietitian for macros...');
-
     try {
       const prompt = `Extract the nutritional macros for this food. Respond ONLY with a valid JSON object: {"description": "clean title", "calories": 000, "protein": 00, "carbs": 00, "fat": 00, "fibre": 00, "satFat": 00}. Food: "${description}"`;
-      
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'system', content: prompt }] })
-      });
-
+      const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: [{ role: 'system', content: prompt }] }) });
       const rawText = await res.text(); let data;
       try { data = JSON.parse(rawText); } catch(e) { throw new Error("AI failed to parse."); }
       if (!res.ok) throw new Error(data.error || "Error");
-      
       const raw = data.choices?.[0]?.message?.content || '';
       const match = raw.match(/\{[\s\S]*\}/);
       if (!match) throw new Error("Could not read macro data.");
-      
       const parsed = JSON.parse(match[0]);
-
       await addDoc(collection(db, 'meals', currentUser.uid, 'items'), {
-        description: parsed.description || description,
-        calories: parsed.calories || 0,
-        protein: parsed.protein || 0,
-        carbs: parsed.carbs || 0,
-        fat: parsed.fat || 0,
-        fibre: parsed.fibre || 0,
-        satFat: parsed.satFat || 0,
-        mealType: (typeEl && typeEl.value) || defaultMealType(), 
-        dateKey: todayKey(), 
-        createdAt: serverTimestamp()
+        description: parsed.description || description, calories: parsed.calories || 0, protein: parsed.protein || 0, carbs: parsed.carbs || 0,
+        fat: parsed.fat || 0, fibre: parsed.fibre || 0, satFat: parsed.satFat || 0,
+        mealType: (typeEl && typeEl.value) || defaultMealType(), dateKey: todayKey(), createdAt: serverTimestamp()
       });
-      
       descEl.value = '';
       if (typeEl) typeEl.value = defaultMealType();
       setStatus('mealStatus', '✅ Logged with macros!');
       setTimeout(() => setStatus('mealStatus', ''), 2000);
-
-    } catch (e) { 
-      setStatus('mealStatus', '❌ ' + e.message, true); 
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "✨ Calculate & Log";
-    }
+    } catch (e) { setStatus('mealStatus', '❌ ' + e.message, true); }
+    finally { btn.disabled = false; btn.textContent = "✨ Calculate & Log"; }
   };
 
   window.deleteMeal = async function(id) { try { await deleteDoc(doc(db, 'meals', currentUser.uid, 'items', id)); } catch (e) {} };
@@ -2201,14 +1876,12 @@
 
   function updateRings() {
     const t = currentProfile?.targets || {}; const calGoal = t.calorieTarget || 2000;
-    
-    const calTotal = todaysMeals.reduce((s, m) => s + (m.calories || 0), 0); 
+    const calTotal = todaysMeals.reduce((s, m) => s + (m.calories || 0), 0);
     const cPct = Math.min(1, calTotal / calGoal);
     const cRing = document.getElementById('calRing'); if (cRing) cRing.setAttribute('stroke-dashoffset', RING_CIRC * (1 - cPct));
     const cText = document.getElementById('calRingText'); if (cText) cText.textContent = calTotal;
     const cCount = document.getElementById('calCount'); if (cCount) cCount.textContent = calTotal;
     const cGoal = document.getElementById('calGoal'); if (cGoal) cGoal.textContent = calGoal;
-
     const proteinTotal = todaysMeals.reduce((s, m) => s + (Number(m.protein) || 0), 0);
     const pCount = document.getElementById('proteinCount'); if (pCount) pCount.textContent = Math.round(proteinTotal);
     const pGoal = document.getElementById('proteinGoal'); if (pGoal) pGoal.textContent = t.proteinTarget || '—';
@@ -2219,10 +1892,8 @@
     if (!prompt) { setStatus('cookStatus', 'Tell me what you have or what you fancy.', true); return; }
     setStatus('cookStatus', 'Creating a recipe…');
     const p = currentProfile; const t = p.targets || {}; const remainingCal = Math.max(200, (t.calorieTarget || 2000) - todaysMeals.reduce((s,m)=>s+(m.calories||0),0));
-    
     const allergies = p.allergies || 'None';
     const dislikes = p.dislikes || 'None';
-    
     const system = `You are a warm, encouraging cookbook author helping ${p.name}. Dietary needs: ${(p.medicalConditions||[]).join(', ')}. ALLERGIES: ${allergies}. DISLIKES: ${dislikes}. She wants roughly ${remainingCal} calories for this meal. CRITICAL: NEVER include allergens in the recipe. Keep sodium moderate unless she has blood pressure concerns.\nRespond ONLY with a JSON object: {"title": "short recipe name", "ingredients": "line-separated list", "steps": "numbered steps, short"}. No extra text.`;
     try {
       const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] }) });
@@ -2282,9 +1953,10 @@
     toggleGoalWeight(); document.getElementById('saveBtn').textContent = 'Update profile ✓'; showWizard(1); showScreen('signupScreen');
   };
 
-  window.openSettings = function() { 
-    document.getElementById('settingsSheet').classList.add('open'); 
-    document.getElementById('sheetOverlay').classList.add('open'); 
+  window.openSettings = function() {
+    document.getElementById('settingsSheet').classList.add('open');
+    document.getElementById('sheetOverlay').classList.add('open');
+    syncSettingsUI();
   };
   window.closeSettings = function() { document.getElementById('settingsSheet').classList.remove('open'); document.getElementById('sheetOverlay').classList.remove('open'); };
 
@@ -2297,16 +1969,14 @@
       const mealsSnap = await getDocs(collection(db, 'meals', uid, 'items')); for (const d of mealsSnap.docs) await deleteDoc(d.ref);
       const recSnap = await getDocs(collection(db, 'recipes', uid, 'items')); for (const d of recSnap.docs) await deleteDoc(d.ref);
       const chatSnap = await getDocs(collection(db, 'chats', uid, 'messages')); for (const d of chatSnap.docs) await deleteDoc(d.ref);
-      
-      closeSettings(); 
-      if (unsubMeals) { unsubMeals(); unsubMeals = null; } 
+      closeSettings();
+      if (unsubMeals) { unsubMeals(); unsubMeals = null; }
       if (unsubRecipes) { unsubRecipes(); unsubRecipes = null; }
       if (unsubChat) { unsubChat(); unsubChat = null; }
       if (unsubSnaps) { unsubSnaps(); unsubSnaps = null; }
       currentProfile = null; todaysMeals = []; savedRecipes = []; allSnaps = [];
-      
       await signOut(auth);
-      window.location.reload(); 
+      window.location.reload();
     } catch (e) { alert('Something went wrong clearing data: ' + e.message); }
   };
 
@@ -2314,9 +1984,7 @@
     const k = todayKey();
     if (k !== activeDayKey) {
       activeDayKey = k;
-      if (currentUser && currentProfile) {
-        loadTodayData().then(() => { updateRings(); });
-      }
+      if (currentUser && currentProfile) loadTodayData().then(() => { updateRings(); });
     }
   }, 60000);
 
@@ -2328,6 +1996,15 @@
       const snap = await getDoc(doc(db, 'profiles', user.uid));
       if (snap.exists() && snap.data().setupComplete) {
         currentProfile = snap.data();
+        // Apply saved theme + accent from profile (cross-device sync)
+        if (currentProfile.accent) {
+          document.documentElement.setAttribute('data-accent', currentProfile.accent);
+          try { localStorage.setItem('fiona-accent', currentProfile.accent); } catch(e){}
+        }
+        if (currentProfile.theme) {
+          document.documentElement.setAttribute('data-theme', currentProfile.theme);
+          try { localStorage.setItem('fiona-theme', currentProfile.theme); } catch(e){}
+        }
         await loadTodayData();
         renderDashboard();
       } else {
@@ -2339,12 +2016,15 @@
         document.getElementById('welcomeBtn').textContent = "Next →";
         showScreen('welcomeScreen');
       }
-    } catch (e) { 
-      console.error("Firebase Error:", e); 
-      showScreen('loginScreen'); 
-      setStatus('status', 'Error: ' + e.message, true); 
+    } catch (e) {
+      console.error("Firebase Error:", e);
+      showScreen('loginScreen');
+      setStatus('status', 'Error: ' + e.message, true);
     }
   });
+
+  // Initialize settings UI on load
+  syncSettingsUI();
 </script>
 
 </body>
